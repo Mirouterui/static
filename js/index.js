@@ -65,6 +65,7 @@ $(function() {
     check_internet_connect();
     get_router_name();
     get_messages();
+
     // 每5秒刷新状态
     setInterval(function() {
         updateStatus();

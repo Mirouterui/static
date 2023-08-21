@@ -20,20 +20,6 @@ downtraffic_data = []
 
 function updateStatus() {
     $.get('/api/misystem/status', function(data) {
-        // upspeed = convertSpeed(data.wan.upspeed)
-        // maxuploadspeed = convertSpeed(data.wan.maxuploadspeed)
-        // downspeed = convertSpeed(data.wan.downspeed)
-        // maxdownloadspeed = convertSpeed(data.wan.maxdownloadspeed)
-        // uploadtotal = convertbytes(data.wan.upload)
-        // downloadtotal = convertbytes(data.wan.download)
-        // cpuload = roundToOneDecimal(data.cpu.load * 100) + '%'
-        // memusage = roundToOneDecimal(data.mem.usage * 100) + '%'
-        // $('#platform').text("小米路由器" + data.hardware.platform);
-        // $('#mac').text(data.hardware.mac);
-        // $('#cpu-used .mdui-progress-determinate').css('width', cpuload);
-        // $('#cpu-used-text').text(cpuload);
-        // $('#mem-used .mdui-progress-determinate').css('width', memusage);
-        // $('#mem-used-text').text(memusage);
         dev = data.dev
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -64,6 +50,12 @@ function updateStatus() {
                 // 调用drawChart函数，绘制图表
                 drawspeedChart();
                 drawtrafficChart();
+                var match = true
+            }
+            if (match != true) {
+                mdui.snackbar({
+                    message: '该设备（如智能插座）不支持此功能😢'
+                });
             }
         }
     });
