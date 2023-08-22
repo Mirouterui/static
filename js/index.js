@@ -2,7 +2,7 @@
 // var upload_traffic_data = [];
 
 function updateStatus() {
-    $.get('/api/misystem/status', function(data) {
+    $.get(host + '/api/misystem/status', function(data) {
         upspeed = convertSpeed(data.wan.upspeed)
         maxuploadspeed = convertSpeed(data.wan.maxuploadspeed)
         downspeed = convertSpeed(data.wan.downspeed)
@@ -31,7 +31,7 @@ function updateStatus() {
 }
 
 function get_messages() {
-    $.get('/api/misystem/messages', function(data) {
+    $.get(host + '/api/misystem/messages', function(data) {
         if (data.code != 0) {
             mdui.snackbar({
                 message: '路由器有新信息，请登录路由器后台查看'
@@ -41,7 +41,7 @@ function get_messages() {
 }
 
 function get_router_name() {
-    $.get('/api/xqsystem/router_name', function(data) {
+    $.get(host + '/api/xqsystem/router_name', function(data) {
         if (data.code === 0) {
             router_name = data.routerName
             $("#router_name").text(router_name)
@@ -50,7 +50,7 @@ function get_router_name() {
 }
 
 function check_internet_connect() {
-    $.get('/api/xqsystem/internet_connect', function(data) {
+    $.get(host + '/api/xqsystem/internet_connect', function(data) {
         if (data.connect === 1) {
             mdui.snackbar({
                 message: '路由器好像没联网呢😢'

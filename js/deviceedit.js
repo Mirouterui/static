@@ -15,7 +15,7 @@ if (mac) {
 }
 
 function getdeviceinfo() {
-    $.get('/api/misystem/devicelist', function(data) {
+    $.get(host + '/api/misystem/devicelist', function(data) {
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -48,7 +48,7 @@ function getdeviceinfo() {
 $("#doit").click(function() {
     new_name = $("#new_name").val();
     if (new_name != "") {
-        url = '/api/xqsystem/set_device_nickname'
+        url = host + '/api/xqsystem/set_device_nickname'
         postdata = {
             "mac": mac,
             "name": new_name

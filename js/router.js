@@ -6,7 +6,7 @@ var upspeed_data = [];
 var downspeed_data = [];
 
 function updateStatus() {
-    $.get('/api/misystem/status', function(data) {
+    $.get(host + '/api/misystem/status', function(data) {
         upspeed = convertSpeed(data.wan.upspeed)
         maxuploadspeed = convertSpeed(data.wan.maxuploadspeed)
         downspeed = convertSpeed(data.wan.downspeed)
@@ -48,7 +48,7 @@ function updateStatus() {
 }
 
 function check_internet_connect() {
-    $.get('/api/xqsystem/internet_connect', function(data) {
+    $.get(host + '/api/xqsystem/internet_connect', function(data) {
         if (data.connect === 1) {
             mdui.snackbar({
                 message: '路由器好像没联网呢😢'
@@ -59,7 +59,7 @@ function check_internet_connect() {
 }
 
 function get_router_name() {
-    $.get('/api/xqsystem/router_name', function(data) {
+    $.get(host + '/api/xqsystem/router_name', function(data) {
         if (data.code === 0) {
             router_name = data.routerName
             $("#router_name").text(router_name)
@@ -68,7 +68,7 @@ function get_router_name() {
 }
 
 function get_fac_info() {
-    $.get('/api/xqsystem/fac_info', function(data) {
+    $.get(host + '/api/xqsystem/fac_info', function(data) {
 
         router_name = data.routerName
         $("#isinit").text(boolTostring(data.init))

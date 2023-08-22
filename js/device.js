@@ -19,7 +19,7 @@ uptraffic_data = []
 downtraffic_data = []
 
 function updateStatus() {
-    $.get('/api/misystem/status', function(data) {
+    $.get(host + '/api/misystem/status', function(data) {
         dev = data.dev
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -62,7 +62,7 @@ function updateStatus() {
 }
 
 function getdeviceinfo() {
-    $.get('/api/misystem/devicelist', function(data) {
+    $.get(host + '/api/misystem/devicelist', function(data) {
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -199,7 +199,7 @@ function getconnecttype(type) {
 }
 
 function get_router_name() {
-    $.get('/api/xqsystem/router_name', function(data) {
+    $.get(host + '/api/xqsystem/router_name', function(data) {
         if (data.code === 0) {
             router_name = data.routerName
             $("#router_name").text(router_name)
