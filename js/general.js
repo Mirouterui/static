@@ -16,7 +16,7 @@ if (document.cookie.indexOf("host") >= 0) {
     }
 }
 //跳转
-if (!host && window.location.pathname !== '/host/index.html') {
+if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pathname !== '/host/index.html') {
     window.location.href = '/host/index.html';
 }
 
@@ -108,5 +108,21 @@ function boolTostring(value) {
         return '是';
     } else {
         return '否';
+    }
+}
+
+function getconnecttype(type) {
+    // 0/1/2/3  有线 / 2.4G wifi / 5G wifi / guest wifi
+    switch (type) {
+        case 0:
+            return "有线连接";
+        case 1:
+            return "2.4G wifi";
+        case 2:
+            return "5G wifi";
+        case 3:
+            return "guest wifi";
+        default:
+            return "未知";
     }
 }

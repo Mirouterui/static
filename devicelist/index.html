@@ -61,33 +61,36 @@
 </div>
             <div class="mdui-container">
                 <div class="mdui-card mdui-m-a-2">
-                    <!-- 卡片标题 -->
-                    <div class="mdui-card-header">
-                        <img class="mdui-card-header-avatar" id="deviceicon" src="/img/device.png" />
-                        <div class="mdui-card-header-title" id="devicename">loading</div>
-                        <div class="mdui-card-header-subtitle" id="mac">mac</div>
-
-                    </div>
-                    <!-- 卡片内容 -->
                     <div class="mdui-card-content">
-                        <div class="mdui-col">
-                            <span class="mdui-typo-body-2-opacity">设备原始名称：</span>
-                            <span id="device_oname">load</span>
-                        </div>
-                        <div class="mdui-textfield mdui-textfield-floating-label">
-                            <label class="mdui-textfield-label">New Name</label>
-                            <input class="mdui-textfield-input" id="new_name" />
-                        </div>
-                    </div>
-                    <div class="mdui-row">
-                        <div class="mdui-text-right" style="padding: 20px 20px;">
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="doit">OK</button>
-                        </div>
-                    </div>
-                    <script src="/js/deviceedit.js"></script>
-                </div>
-            </div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">设备列表（按<span id="showtypetext">下载速度</span>排列）</div>
+                        <div class="mdui-table-fluid">
+                            <table class="mdui-table mdui-table-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>设备名称</th>
+                                        <!-- <th>详细数据</th> -->
+                                        <th id="switchdownspeed">下载速度</th>
+                                        <th id="switchupspeed">上传速度</th>
+                                        <th>在线时长</th>
+                                        <th>连接方式</th>
+                                        <th>IP地址</th>
+                                        <th>MAC</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody id="device-list">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mdui-divider gap"></div>
+
+                        <span class="mdui-typo-subheading-opacity mdui-m-y-1">
+                            当前连接了 <strong><span id="devicenum_now">load</span></strong> 个设备<span id="warning" style="display: none;">（设备过多，可能部分设备详细信息无法显示，如智能家居）</span>
+                        </span>
+                    </div>
+                </div>
+                <script src="/js/devicelist.js"></script>
+            </div>
             <!-- <footer id="footer">
     <span>Made by <a href="https://www.hzchu.top/">Thun888</a>.Version:23/8/24[1]</layout></span>
 </footer> -->

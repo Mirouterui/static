@@ -182,21 +182,6 @@ function drawtrafficChart() {
     myChart.setOption(option);
 }
 
-function getconnecttype(type) {
-    // 0/1/2/3  有线 / 2.4G wifi / 5G wifi / guest wifi
-    switch (type) {
-        case 0:
-            return "有线连接";
-        case 1:
-            return "2.4G wifi";
-        case 2:
-            return "5G wifi";
-        case 3:
-            return "guest wifi";
-        default:
-            return "未知";
-    }
-}
 
 function get_router_name() {
     $.get(host + '/api/xqsystem/router_name', function(data) {

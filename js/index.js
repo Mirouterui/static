@@ -1,6 +1,3 @@
-// var download_traffic_data = [];
-// var upload_traffic_data = [];
-
 function updateStatus() {
     $.get(host + '/api/misystem/status', function(data) {
         upspeed = convertSpeed(data.wan.upspeed)
@@ -97,11 +94,6 @@ function listdevices(dev) {
         td_devname.innerHTML = "<a href='" + detail_url + "'>" + device.devname + "</a>";
         tr.appendChild(td_devname);
 
-        // var td_detail = document.createElement("td");
-        // var detail_url = "/device/?mac=" + device.mac;
-        // td_detail.innerHTML = "<a href='" + detail_url + "'>点我</a>";
-        // tr.appendChild(td_detail);
-
         var td_downspeed = document.createElement("td");
         td_downspeed.textContent = convertSpeed(device.downspeed);
         tr.appendChild(td_downspeed);
@@ -117,33 +109,12 @@ function listdevices(dev) {
         var td_downtotal = document.createElement("td");
         td_downtotal.textContent = convertbytes(device.download);
         tr.appendChild(td_downtotal);
-
-        // var td_maxdownspeed = document.createElement("td");
-        // td_maxdownspeed.textContent = convertSpeed(device.maxdownloadspeed);
-        // tr.appendChild(td_maxdownspeed);
-
-        // var td_maxupspeed = document.createElement("td");
-        // td_maxupspeed.textContent = convertSpeed(device.maxuploadspeed);
-        // tr.appendChild(td_maxupspeed);
-
-        // var td_onlinetime = document.createElement("td");
-        // td_onlinetime.textContent = convertSeconds(device.online);
-        // tr.appendChild(td_onlinetime);
-
-        // var td_mac = document.createElement("td");
-        // td_mac.textContent = device.mac;
-        // tr.appendChild(td_mac);
-
         //将内容行添加到表格内容区域中
         tbody.appendChild(tr);
-
-        // pushuptrafficdata(device.devname, togb(device.upload));
-        // pushdowntrafficdata(device.devname, togb(device.download));
     }
 
     //更新表格元素
     table.appendChild(tbody);
-    // drawtrafficChart();
 }
 
 function pushuptrafficdata(name, value) {
