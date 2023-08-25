@@ -65,33 +65,36 @@
 </div>
             <div class="mdui-container">
                 <div class="mdui-card mdui-m-a-2">
-                    <!-- 卡片标题 -->
-                    <div class="mdui-card-header">
-                        <img class="mdui-card-header-avatar" id="deviceicon" src="/img/device.png" />
-                        <div class="mdui-card-header-title" id="devicename">loading</div>
-                        <div class="mdui-card-header-subtitle" id="mac">mac</div>
-
-                    </div>
-                    <!-- 卡片内容 -->
                     <div class="mdui-card-content">
-                        <div class="mdui-col">
-                            <span class="mdui-typo-body-2-opacity">设备原始名称：</span>
-                            <span id="device_oname">load</span>
-                        </div>
-                        <div class="mdui-textfield mdui-textfield-floating-label">
-                            <label class="mdui-textfield-label">New Name</label>
-                            <input class="mdui-textfield-input" id="new_name" />
-                        </div>
-                    </div>
-                    <div class="mdui-row">
-                        <div class="mdui-text-right" style="padding: 20px 20px;">
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="doit">OK</button>
-                        </div>
-                    </div>
-                    <script src="/js/deviceedit.js"></script>
-                </div>
-            </div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">温度显示</div>
+                        <div class="mdui-divider gap"></div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">模式</div>
+                        <select class="mdui-select">
+                            <option value="1">API</option>
+                            <option value="2">命令</option>
+                          </select>
+                        <div class="mdui-divider gap"></div>
 
+                        <div class="mdui-table-fluid">
+                            <table class="mdui-table mdui-table-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>核心温度</th>
+                                        <!-- <th>详细数据</th> -->
+                                        <th>2.4g模块温度</th>
+                                        <th>5g模块温度</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tp-list">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mdui-divider gap"></div>
+                        <div id="tp-chart" style="width: 100%; height: 300px;"></div>
+                    </div>
+                </div>
+                <script src="/js/temperature.js"></script>
+            </div>
             <!-- <footer id="footer">
     <span>Made by <a href="https://www.hzchu.top/">Thun888</a>.Version:23/8/25[1]</layout></span>
 </footer> -->

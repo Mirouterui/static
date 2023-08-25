@@ -20,6 +20,7 @@ downtraffic_data = []
 
 function updateStatus() {
     $.get(host + '/api/misystem/status', function(data) {
+        var match
         dev = data.dev
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -52,11 +53,11 @@ function updateStatus() {
                 drawtrafficChart();
                 var match = true
             }
-            if (match != true) {
-                mdui.snackbar({
-                    message: '该设备（如智能插座）不支持此功能😢'
-                });
-            }
+        }
+        if (match != true) {
+            mdui.snackbar({
+                message: '该设备（如智能插座）不支持此功能😢'
+            });
         }
     });
 }
