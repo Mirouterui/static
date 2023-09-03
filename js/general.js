@@ -15,6 +15,18 @@ if (document.cookie.indexOf("host") >= 0) {
         }
     }
 }
+//处理routernum
+let routernum = "0";
+if (document.cookie.indexOf("routernum") >= 0) {
+    let cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split("=");
+        if (cookie[0] === "routernum") {
+            routernum = cookie[1];
+            break;
+        }
+    }
+}
 //跳转
 if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pathname !== '/host/index.html') {
     window.location.href = '/host/index.html';

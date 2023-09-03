@@ -3,8 +3,6 @@ var warningconst = false
 var cputp_data = []
 var w24gtp_data = []
 var w5gtp_data = []
-    //支持设备
-let supportedDeviceList = ["RA69"];
 $(document).ready(function() {
     try {
         mode = document.cookie.split('; ').find(row => row.startsWith('mode=')).split('=')[1];
@@ -14,21 +12,17 @@ $(document).ready(function() {
     $('.mdui-select').val(mode);
     new mdui.Select('.mdui-select');
 });
+
 $('.mdui-select').change(function() {
     if ($(this).val() == 2) {
         $.get(host + '/_api/getconfig', function(data) {
-            if (data.routerunit == false) {
+            if (data.dev[routernum].routerunit == false) {
                 mdui.snackbar({
                     message: '在路由器上运行并打开routerunit模式'
                 });
             } else {
-                if (supportedDeviceList.includes(data.hardware)) {
-                    document.cookie = "mode=2; path=/";
-                } else {
-                    mdui.snackbar({
-                        message: '该设备未获支持'
-                    });
-                }
+                document.cookie = "mode=2; path=/";
+                mode = 2
             }
         });
     } else {
@@ -39,7 +33,7 @@ $('.mdui-select').change(function() {
 
 function gettp() {
     if (mode == 1) {
-        $.get(host + '/api/misystem/status', function(data) {
+        $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
             cputp = data.temperature
             w24gtp = 0
             w5gtp = 0
@@ -79,7 +73,7 @@ function gettp() {
 
         });
     } else if (mode == 2) {
-        $.get(host + '/_api/gettemperature', function(data) {
+        $.get(host + "/" + routernum + '/_api/gettemperature', function(data) {
             if (data.code == 0) {
                 cputp = data.cpu_temperature / 1000
                 w24gtp = data.w24g_temperature / 1000

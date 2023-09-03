@@ -1,7 +1,7 @@
 showtype = false
 
 function updateStatus() {
-    $.get(host + '/api/misystem/devicelist', function(data) {
+    $.get(host + "/" + routernum + '/api/misystem/devicelist', function(data) {
         listdevices(data.list)
     });
 }
