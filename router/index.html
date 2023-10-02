@@ -42,6 +42,10 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
             <div class="mdui-list-item-content">设置后台主机地址</div>
         </a>
+        <a href="/checkupdate/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
+            <div class="mdui-list-item-content">检查更新</div>
+        </a>
         <a href="https://github.com/orgs/Mirouterui/discussions" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
             <div class="mdui-list-item-content">反馈</div>
@@ -51,7 +55,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            23/9/3
+            2023-10-02 12:39:35
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -151,6 +155,18 @@
                         <div class="mdui-typo-subheading-opacity mdui-m-y-1">设备信息</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">MAC地址：</span>
+                                <span id="mac">load</span>
+                            </div>
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">SN：</span>
+                                <span id="sncode">load</span>
+                            </div>
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">系统版本：</span>
+                                <span id="system-version">load</span>
+                            </div>
+                            <div class="mdui-col">
                                 <span class="mdui-typo-body-2-opacity">CPU核心数：</span>
                                 <span id="cpu_core">load</span>
                             </div>
@@ -174,10 +190,6 @@
                         <div class="mdui-divider gap"></div>
                         <div class="mdui-typo-subheading-opacity mdui-m-y-1">工厂信息</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
-                            <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">MAC地址：</span>
-                                <span id="mac">load</span>
-                            </div>
                             <div class="mdui-col">
                                 <span class="mdui-typo-body-2-opacity">是否初始化：</span>
                                 <span id="isinit">load</span>

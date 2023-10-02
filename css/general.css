@@ -2,7 +2,6 @@ body {
     --bg: url("/img/milogo.png");
     background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), var(--bg);
     background-repeat: repeat;
-    /* background-size: cover; */
     background-attachment: fixed;
 }
 
@@ -15,18 +14,6 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
-
-/* #footer {
-    text-align: center;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background: rgba(97, 104, 90, 0.337);
-    line-height: 2;
-    z-index: 999;
-    margin-top: 40px;
-} */
 
 a {
     text-decoration: none;
@@ -46,5 +33,4 @@ a {
 #sidebar .mdui-list {
     flex: 1;
     box-sizing: border-box;
-    /* height: 75%; */
 }

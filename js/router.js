@@ -4,7 +4,13 @@ var cpu_data = [];
 var mem_data = [];
 var upspeed_data = [];
 var downspeed_data = [];
-
+var data_num = 0;
+var traffic_chart = document.getElementById("traffic-chart");
+var TrafficChart = echarts.init(traffic_chart);
+var status_chart = document.getElementById("status-chart");
+var StatusChart = echarts.init(status_chart);
+var speed_chart = document.getElementById("speed-chart");
+var SpeedChart = echarts.init(speed_chart);
 function updateStatus() {
     $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
         upspeed = convertSpeed(data.wan.upspeed)
@@ -22,6 +28,8 @@ function updateStatus() {
         memtype = data.mem.type
         $('#platform').text("小米路由器" + data.hardware.platform);
         $('#mac').text(data.hardware.mac);
+        $('#sncode').text(data.hardware.sn);
+        $('#system-version').text(data.hardware.channel + "/" + data.hardware.version);
         $('#cpu-used .mdui-progress-determinate').css('width', cpuload + '%');
         $('#cpu-used-text').text(cpuload + '%');
         $('#mem-used .mdui-progress-determinate').css('width', memusage + '%');
@@ -38,10 +46,11 @@ function updateStatus() {
         $("#mem_freq").text(memfreq)
         $("#mem_type").text(memtype)
         pushdata(data.dev)
-        cpu_data.push(cpuload);
-        mem_data.push(memusage);
-        upspeed_data.push((data.wan.upspeed / 1024 / 1024).toFixed(2));
-        downspeed_data.push((data.wan.downspeed / 1024 / 1024).toFixed(2));
+        addData(cpu_data, cpuload)
+        addData(mem_data, memusage)
+        addData(upspeed_data, (data.wan.upspeed / 1024 / 1024).toFixed(2))
+        addData(downspeed_data, (data.wan.downspeed / 1024 / 1024).toFixed(2))
+        data_num = data_num + 1;
         drawstatusChart();
         drawspeedChart();
     });
@@ -128,10 +137,6 @@ function pushdowntrafficdata(name, value) {
 }
 
 function drawtrafficChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("traffic-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -155,17 +160,13 @@ function drawtrafficChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    TrafficChart.setOption(option);
     //清空数据
     upload_traffic_data = [];
     download_traffic_data = [];
 }
 
 function drawstatusChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("status-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -178,7 +179,11 @@ function drawstatusChart() {
         xAxis: {
             type: "category",
             data: cpu_data.map(function(item, index) {
-                return (index + 1) * 5 + "s"; // 返回请求次数作为横坐标
+                var data_offset = 0;
+                if (data_num > 60) {
+                    data_offset = data_num - 60;
+                }
+                return (index + data_offset + 1) * 5 + "s"; // 返回请求次数作为横坐标
             }),
         },
         yAxis: {
@@ -198,14 +203,10 @@ function drawstatusChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    StatusChart.setOption(option);
 }
 
 function drawspeedChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("speed-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -217,8 +218,12 @@ function drawspeedChart() {
         },
         xAxis: {
             type: "category",
-            data: cpu_data.map(function(item, index) {
-                return (index + 1) * 5 + "s"; // 返回请求次数作为横坐标
+            data: downspeed_data.map(function(item, index) {
+                var data_offset = 0;
+                if (data_num > 60) {
+                    data_offset = data_num - 60;
+                }
+                return (index + data_offset + 1) * 5 + "s"; // 返回请求次数作为横坐标
             }),
         },
         yAxis: {
@@ -238,5 +243,10 @@ function drawspeedChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    SpeedChart.setOption(option);
 }
+window.addEventListener('resize', function () {
+    TrafficChart.resize();
+    StatusChart.resize();
+    SpeedChart.resize();
+});

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIROUTER-UI</title>
+    <link rel="stylesheet" href="/css/mdui.min.css">
+    <script src="/js/mdui.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
+    <div class="mdui-drawer mdui-drawer-close" id="sidebar">
+    <div class="mdui-list" mdui-collapse="{accordion: true}">
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">首页</div>
+        </a>
+        <a href="/devicelist/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">devices</i>
+            <div class="mdui-list-item-content">设备列表</div>
+        </a>
+        <a href="/router/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">router</i>
+            <div class="mdui-list-item-content">路由器状态</div>
+        </a>
+        <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
+            <div class="mdui-list-item-content">路由器温度</div>
+        </a>
+        <a href="/choicerouter/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
+            <div class="mdui-list-item-content">选择路由器</div>
+        </a>
+        <a href="/host/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
+            <div class="mdui-list-item-content">设置后台主机地址</div>
+        </a>
+        <a href="/checkupdate/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
+            <div class="mdui-list-item-content">检查更新</div>
+        </a>
+        <a href="https://github.com/orgs/Mirouterui/discussions" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
+            <div class="mdui-list-item-content">反馈</div>
+        </a>
+    </div>
+    <div class="copyright">
+        <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
+
+        <p>前端版本：
+            2023-10-02 12:39:35
+        </p>
+        <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
+    </div>
+</div>
+        <div class="mdui-appbar">
+    <div class="mdui-toolbar mdui-color-teal mdui-appbar-scroll-hide">
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar'}">
+            <i class="mdui-icon material-icons">menu</i>
+        </a>
+        <a href="#" class="mdui-typo-headline" id="titletext">Mirouter-UI</a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">home</i>
+        </a>
+        <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">refresh</i>
+        </a>
+    </div>
+</div>
+            <div class="mdui-container">
+
+                <div class="mdui-card">
+                    <div class="mdui-card-content">
+                        <p>前端版本：<span id="frontversion">2023-10-02 12:39:35</span><br>后端版本：<span id="backversion">load</span></p>
+                        <div class="mdui-divider gap"></div>
+                        <p id="update-info">正在检查更新...</p>
+                    </div>
+                    <div class="mdui-card-actions">
+                        <div class="mdui-spinner mdui-spinner-colorful" id="spinner"></div>
+                        <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" disabled>更新前端</button>
+                        <button id="checkUpdate-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="checkUpdate()">检查更新</button>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .mdui-card {
+                    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    margin-top: 25%;
+                }
+                
+                .mdui-card-actions {
+                    text-align: right;
+                    /* 将按钮右对齐 */
+                }
+                
+                .mdui-card-actions .mdui-btn {
+                    border-radius: 8px;
+                }
+            </style>
+            <script>
+                $("#spinner").hide();
+
+                function getBackVersion() {
+                    $.get(host + '/_api/getconfig', function(data) {
+                        $('#backversion').text(data.ver)
+                    });
+                }
+
+                function checkUpdate() {
+                    $("#update-info").text("正在检查更新...");
+                    $("#checkUpdate-button").attr("disabled", true);
+                    $("#spinner").show();
+                    $.get("https://mrui-api.hzchu.top/checkupdate", function(data) {
+                        var frontversion = data.frontversion;
+                        var backversion = data.backversion;
+                        var versioninfo = ""
+                            // 检查document.getElementById("frontversion")是否一致
+                        if ($("#frontversion").text() != frontversion) {
+                            versioninfo += "前端版本有更新，版本号：" + frontversion + "<br>";
+                            $("#flushFront-button").attr("disabled", false);
+                        }
+                        if ($("#backversion").text() != backversion) {
+                            versioninfo += "后端版本有更新，版本号：" + backversion + "<br>";
+                        }
+                        $("#update-info").html(versioninfo);
+                        $("#checkUpdate-button").attr("disabled", false);
+                        $("#spinner").hide();
+                    })
+
+                }
+
+                function flushFront() {
+                    $("#spinner").show();
+                    $("#flushFront-button").attr("disabled", true);
+                    $.get(host + '/_api/flushstatic', function(data) {
+                        if (data.code == 0) {
+                            mdui.snackbar({
+                                message: "更新成功"
+                            })
+                        } else if (data.msg) {
+                            mdui.snackbar({
+                                message: data.msg
+                            });
+                        } else {
+                            mdui.snackbar({
+                                message: data.message
+                            });
+                        }
+                        $("#spinner").hide();
+                        $("#flushFront-button").attr("disabled", false);
+                        // 5秒后刷新
+                        setTimeout(function() {
+                            location.reload();
+                        }, 5000);
+                    })
+                }
+                $(function() {
+                    getBackVersion();
+                    checkUpdate();
+                });
+            </script>
+            <link rel="stylesheet" href="/css/general.css">
+<script src="/js/general.js"></script>
+</body>

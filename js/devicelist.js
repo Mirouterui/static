@@ -2,12 +2,12 @@ showtype = false
 
 function updateStatus() {
     $.get(host + "/" + routernum + '/api/misystem/devicelist', function(data) {
-        listdevices(data.list)
+        listDevices(data.list)
     });
 }
 
 
-function listdevices(dev) {
+function listDevices(dev) {
     // 按下载速度或上传速度排序设备列表
     dev.sort(
         function(a, b) {
@@ -59,8 +59,9 @@ function listdevices(dev) {
         td_type.textContent = getconnecttype(device.type);
         tr.appendChild(td_type);
 
+        ips = moreipdisplay(device.ip)
         var td_ip = document.createElement("td");
-        td_ip.textContent = device.ip[0].ip;
+        td_ip.textContent = ips
         tr.appendChild(td_ip);
 
         var td_mac = document.createElement("td");

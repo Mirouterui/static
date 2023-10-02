@@ -32,6 +32,7 @@ if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pa
     window.location.href = '/host/index.html';
 }
 
+
 // 接受数字，输出速度（MB/s）
 function convertSpeed(bytesPerSecond) {
     bytesPerSecond = parseFloat(bytesPerSecond);
@@ -137,4 +138,31 @@ function getconnecttype(type) {
         default:
             return "未知";
     }
+}
+
+// 添加新数据到数组，并保持数组长度不超过60
+function addData(dataArray, newData) {
+    dataArray.push(newData);
+    // 当数组长度大于60时，删除最先添加的数据
+    if (dataArray.length > 60) {
+        dataArray.shift();
+    }
+}
+
+function moreipdisplay(ip) {
+    var ips = "";
+    if (ip.length == 1) {
+        ips = ip[0].ip
+    } else {
+        for (var i = 0; i < ip.length; i++) {
+            if (ip[i].active == 1) {
+                ips += ip[i].ip;
+                // 如果不是最后一个元素，添加逗号分隔符
+                if (i < ip.length - 1) {
+                    ips += ", ";
+                }
+            }
+        }
+    }
+    return ips
 }

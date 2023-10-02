@@ -3,6 +3,9 @@ var warningconst = false
 var cputp_data = []
 var w24gtp_data = []
 var w5gtp_data = []
+var data_num = 0;
+var tp_chart = document.getElementById("tp-chart");
+var TpChart = echarts.init(tp_chart);
 $(document).ready(function() {
     try {
         mode = document.cookie.split('; ').find(row => row.startsWith('mode=')).split('=')[1];
@@ -31,7 +34,7 @@ $('.mdui-select').change(function() {
     }
 });
 
-function gettp() {
+function getTp() {
     if (mode == 1) {
         $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
             cputp = data.temperature
@@ -56,6 +59,10 @@ function gettp() {
             td_cputp.textContent = cputp + "°C";
             tr.appendChild(td_cputp);
 
+            var td_fanspeed = document.createElement("td");
+            td_fanspeed.textContent = "不支持";
+            tr.appendChild(td_fanspeed);
+
             var td_w24gtp = document.createElement("td");
             td_w24gtp.textContent = "不支持";
             tr.appendChild(td_w24gtp);
@@ -66,10 +73,10 @@ function gettp() {
             //将内容行添加到表格内容区域中
             tbody.appendChild(tr);
             table.appendChild(tbody);
-            cputp_data.push(cputp)
-            w24gtp_data.push(w24gtp)
-            w5gtp_data.push(w5gtp)
-            drawtpChart();
+            addData(cputp_data, cputp)
+            addData(w24gtp_data, w24gtp)
+            addData(w5gtp_data, w5gtp)
+            drawTpChart();
 
         });
     } else if (mode == 2) {
@@ -87,6 +94,10 @@ function gettp() {
                 td_cputp.textContent = cputp + "°C";
                 tr.appendChild(td_cputp);
 
+                var td_fanspeed = document.createElement("td");
+                td_fanspeed.textContent = data.fanspeed
+                tr.appendChild(td_fanspeed);
+
                 var td_24gtp = document.createElement("td");
                 td_24gtp.textContent = w24gtp + "°C";
                 tr.appendChild(td_24gtp);
@@ -99,10 +110,11 @@ function gettp() {
                 tbody.appendChild(tr);
 
                 table.appendChild(tbody);
-                cputp_data.push(cputp)
-                w24gtp_data.push(w24gtp)
-                w5gtp_data.push(w5gtp)
-                drawtpChart();
+                addData(cputp_data, cputp)
+                addData(cputp_data, cputp)
+                addData(w24gtp_data, w24gtp)
+                addData(w5gtp_data, w5gtp)
+                drawTpChart();
             } else {
 
                 mdui.snackbar({
@@ -114,11 +126,7 @@ function gettp() {
     }
 }
 
-function drawtpChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("tp-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
+function drawTpChart() {
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -131,7 +139,11 @@ function drawtpChart() {
         xAxis: {
             type: "category",
             data: cputp_data.map(function(item, index) {
-                return (index + 1) * 5 + "s"; // 返回请求次数作为横坐标
+                var data_offset = 0;
+                if (data_num > 60) {
+                    data_offset = data_num - 60;
+                }
+                return (index + data_offset + 1) * 5 + "s"; // 返回请求次数作为横坐标
             }),
         },
         yAxis: {
@@ -156,14 +168,19 @@ function drawtpChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    TpChart.setOption(option);
 }
+
+window.addEventListener('resize', function() {
+    TpChart.resize();
+});
+
 
 $(function() {
     // 初次加载状态
-    gettp();
+    getTp();
     // 每5秒刷新状态
     setInterval(function() {
-        gettp();
+        getTp();
     }, 5000);
 });

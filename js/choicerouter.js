@@ -13,17 +13,14 @@ function getconfig() {
                 var tr = document.createElement("tr");
 
                 var td_routername = document.createElement("td");
-                td_routername.textContent = routername;
+                var detail_url = "./?choice=" + i;
+
+                td_routername.innerHTML = "<a href='" + detail_url + "'>" + routername + "</a>";
                 tr.appendChild(td_routername);
 
                 var td_ip = document.createElement("td");
                 td_ip.textContent = dev[i].ip;
                 tr.appendChild(td_ip);
-
-                var td_choice = document.createElement("td");
-                var detail_url = "./?choice=" + i;
-                td_choice.innerHTML = "<a href='" + detail_url + "'>点我</a>";
-                tr.appendChild(td_choice);
 
                 tbody.appendChild(tr);
 

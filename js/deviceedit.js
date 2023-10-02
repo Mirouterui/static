@@ -1,3 +1,4 @@
+// 废弃代码
 // 获取查询字符串
 var queryString = window.location.search;
 // 去掉第一个问号
@@ -14,7 +15,7 @@ if (mac) {
     });
 }
 
-function getdeviceinfo() {
+function getDeviceInfo() {
     $.get(host + "/" + routernum + '/api/misystem/devicelist', function(data) {
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
@@ -71,4 +72,4 @@ $("#doit").click(function() {
     }
 });
 // 初次加载状态
-getdeviceinfo();
+getDeviceInfo();

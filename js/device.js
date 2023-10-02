@@ -1,8 +1,5 @@
-// 获取查询字符串
 var queryString = window.location.search;
-// 去掉第一个问号
 queryString = queryString.substring(1);
-// 用等号分割查询字符串
 var queryArray = queryString.split("=");
 // 获取MAC地址
 var mac = queryArray[1];
@@ -17,6 +14,11 @@ upspeed_data = []
 downspeed_data = []
 uptraffic_data = []
 downtraffic_data = []
+var data_num = 0;
+var speed_chart = document.getElementById("speed-chart");
+var SpeedChart = echarts.init(speed_chart);
+var traffic_chart = document.getElementById("traffic-chart");
+var TrafficChart = echarts.init(traffic_chart);
 
 function updateStatus() {
     $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
@@ -44,11 +46,11 @@ function updateStatus() {
                 var downspeed = (device.downspeed / 1024 / 1024).toFixed(2);
                 var uploadtotal = togb(device.upload)
                 var downloadtotal = togb(device.download);
-                upspeed_data.push(upspeed);
-                downspeed_data.push(downspeed);
-                uptraffic_data.push(uploadtotal);
-                downtraffic_data.push(downloadtotal);
-                // 调用drawChart函数，绘制图表
+                addData(upspeed_data, upspeed)
+                addData(downspeed_data, downspeed)
+                addData(uptraffic_data, uploadtotal)
+                addData(downtraffic_data, downloadtotal)
+                    // 调用drawChart函数，绘制图表
                 drawspeedChart();
                 drawtrafficChart();
                 var match = true
@@ -62,7 +64,7 @@ function updateStatus() {
     });
 }
 
-function getdeviceinfo() {
+function getDeviceInfo() {
     $.get(host + "/" + routernum + '/api/misystem/devicelist', function(data) {
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
@@ -74,10 +76,11 @@ function getdeviceinfo() {
                 } else {
                     iconurl = "/img/device_list_unknow.png"
                 }
+                ips = moreipdisplay(device.ip)
                 $("#devicename").text(device.name);
                 $("#deviceicon").attr("src", iconurl);
                 $("#device_oname").text(device.oname);
-                $("#ipaddress").text(device.ip[0].ip); //不管多少个ip地址，只显示第一个
+                $("#ipaddress").text(ips);
                 $("#authority_wan").text(getbooleantype(device.authority.wan));
                 $("#authority_lan").text(getbooleantype(device.authority.lan));
                 $("#authority_admin").text(getbooleantype(device.authority.admin));
@@ -104,10 +107,6 @@ function getdeviceinfo() {
 }
 
 function drawspeedChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("speed-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -116,7 +115,11 @@ function drawspeedChart() {
         xAxis: {
             type: "category",
             data: upspeed_data.map(function(item, index) {
-                return (index + 1) * 5 + "s"; // 返回请求次数作为横坐标
+                var data_offset = 0;
+                if (data_num > 60) {
+                    data_offset = data_num - 60;
+                }
+                return (index + data_offset + 1) * 5 + "s"; // 返回请求次数作为横坐标
             }),
         },
         yAxis: {
@@ -140,14 +143,10 @@ function drawspeedChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    SpeedChart.setOption(option);
 }
 
 function drawtrafficChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("traffic-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
     // 定义图表的配置项和数据
     var option = {
         tooltip: {
@@ -155,8 +154,12 @@ function drawtrafficChart() {
         },
         xAxis: {
             type: "category",
-            data: upspeed_data.map(function(item, index) {
-                return (index + 1) * 5 + "s"; // 返回请求次数作为横坐标
+            data: uptraffic_data.map(function(item, index) {
+                var data_offset = 0;
+                if (data_num > 60) {
+                    data_offset = data_num - 60;
+                }
+                return (index + data_offset + 1) * 5 + "s"; // 返回请求次数作为横坐标
             }),
         },
         legend: {
@@ -180,9 +183,12 @@ function drawtrafficChart() {
         ],
     };
     // 设置图表的配置项和数据
-    myChart.setOption(option);
+    TrafficChart.setOption(option);
 }
-
+window.addEventListener('resize', function() {
+    TrafficChart.resize();
+    SpeedChart.resize();
+});
 
 function get_router_name() {
     $.get(host + "/" + routernum + '/api/xqsystem/router_name', function(data) {
@@ -194,7 +200,7 @@ function get_router_name() {
 }
 $(function() {
     // 初次加载状态
-    getdeviceinfo();
+    getDeviceInfo();
     get_router_name();
     updateStatus();
     // 每5秒刷新状态

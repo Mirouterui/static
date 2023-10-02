@@ -23,7 +23,7 @@ function updateStatus() {
         $('#downloadtotal').text(downloadtotal)
         $("#devicenum").text(devicenum)
         $("#devicenum_now").text(devicenum_now)
-        listdevices(data.dev)
+        listDevices(data.dev)
     });
 }
 
@@ -71,7 +71,7 @@ $(function() {
 
 
 
-function listdevices(dev) {
+function listDevices(dev) {
     //获取已有的表格元素
     var table = document.querySelector("table");
 
@@ -133,38 +133,4 @@ function pushdowntrafficdata(name, value) {
     }
     download_traffic_data.push(data);
 
-}
-
-function drawtrafficChart() {
-    // 获取div元素，用于放置图表
-    var chart = document.getElementById("traffic-chart");
-    // 初始化echarts实例
-    var myChart = echarts.init(chart);
-    // 定义图表的配置项和数据
-    var option = {
-        tooltip: {
-            trigger: 'item',
-            confine: true
-        },
-        series: [{
-                name: '上传流量(GB)',
-                type: 'pie',
-                radius: '50%',
-                center: ['25%', '50%'],
-                data: upload_traffic_data,
-            },
-            {
-                name: '下载流量(GB)',
-                type: 'pie',
-                radius: '50%',
-                center: ['75%', '50%'],
-                data: download_traffic_data,
-            }
-        ],
-    };
-    // 设置图表的配置项和数据
-    myChart.setOption(option);
-    //清空数据
-    upload_traffic_data = [];
-    download_traffic_data = [];
 }
