@@ -53,7 +53,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            2023-10-02 15:03:51
+            2023-10-02 16:22:57
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -80,7 +80,7 @@
 
                 <div class="mdui-card">
                     <div class="mdui-card-content">
-                        <p>前端版本：<span id="frontversion">2023-10-02 15:03:51</span><br>后端版本：<span id="backversion">load</span></p>
+                        <p>前端版本：<span id="frontversion">2023-10-02 16:22:57</span><br>后端版本：<span id="backversion">load</span></p>
                         <div class="mdui-divider gap"></div>
                         <p id="update-info">正在检查更新...</p>
                     </div>
@@ -137,6 +137,9 @@
                         }
                         if ($("#backversion").text() != backversion) {
                             versioninfo += "后端版本有更新，版本号：" + backversion + "<br>";
+                        }
+                        if ($("#frontversion").text() != frontversion && $("#backversion").text() != backversion) {
+                            versioninfo += "未检测到更新(●'◡'●)<br>";
                         }
                         $("#update-info").html(versioninfo);
                         $("#checkUpdate-button").attr("disabled", false);
