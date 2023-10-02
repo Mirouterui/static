@@ -5,7 +5,11 @@ var mem_data = [];
 var upspeed_data = [];
 var downspeed_data = [];
 var data_num = 0;
-
+if (localStorage.getItem("darkMode") == "true") {
+    lightmode = "dark"
+} else {
+    lightmode = "auto"
+}
 var traffic_chart = document.getElementById("traffic-chart");
 var TrafficChart = echarts.init(traffic_chart, lightmode);
 var status_chart = document.getElementById("status-chart");

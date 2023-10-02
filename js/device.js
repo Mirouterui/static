@@ -15,6 +15,11 @@ downspeed_data = []
 uptraffic_data = []
 downtraffic_data = []
 var data_num = 0;
+if (localStorage.getItem("darkMode") == "true") {
+    lightmode = "dark"
+} else {
+    lightmode = "auto"
+}
 var speed_chart = document.getElementById("speed-chart");
 var SpeedChart = echarts.init(speed_chart, lightmode);
 var traffic_chart = document.getElementById("traffic-chart");

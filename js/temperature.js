@@ -4,6 +4,11 @@ var cputp_data = []
 var w24gtp_data = []
 var w5gtp_data = []
 var data_num = 0;
+if (localStorage.getItem("darkMode") == "true") {
+    lightmode = "dark"
+} else {
+    lightmode = "auto"
+}
 var tp_chart = document.getElementById("tp-chart");
 var TpChart = echarts.init(tp_chart,lightmode);
 $(document).ready(function() {
