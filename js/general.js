@@ -167,3 +167,8 @@ if (localStorage.getItem("darkMode") == "true") {
     document.body.classList.add("mdui-theme-layout-dark");
     document.documentElement.setAttribute('data-theme', 'dark');
 }
+if (localStorage.getItem("darkMode") == "true") {
+    lightmode = "dark"
+} else {
+    lightmode = "auto"
+}

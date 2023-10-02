@@ -5,7 +5,7 @@ var w24gtp_data = []
 var w5gtp_data = []
 var data_num = 0;
 var tp_chart = document.getElementById("tp-chart");
-var TpChart = echarts.init(tp_chart);
+var TpChart = echarts.init(tp_chart,lightmode);
 $(document).ready(function() {
     try {
         mode = localStorage.getItem('mode') || 1;
