@@ -8,7 +8,7 @@ var tp_chart = document.getElementById("tp-chart");
 var TpChart = echarts.init(tp_chart);
 $(document).ready(function() {
     try {
-        mode = document.cookie.split('; ').find(row => row.startsWith('mode=')).split('=')[1];
+        mode = localStorage.getItem('mode') || 1;
     } catch (error) {
         mode = 1;
     }
@@ -24,15 +24,16 @@ $('.mdui-select').change(function() {
                     message: '在路由器上运行并打开routerunit模式'
                 });
             } else {
-                document.cookie = "mode=2; path=/";
-                mode = 2
+                localStorage.setItem('mode', 2);
+                mode = 2;
             }
         });
     } else {
-        document.cookie = "mode=1; path=/";
-        mode = 1
+        localStorage.setItem('mode', 1);
+        mode = 1;
     }
 });
+
 
 function getTp() {
     if (mode == 1) {

@@ -5,12 +5,17 @@ var mem_data = [];
 var upspeed_data = [];
 var downspeed_data = [];
 var data_num = 0;
+if (localStorage.getItem("darkMode") == "true") {
+    lightmode = "dark"
+}else{
+    lightmode = "auto"
+}
 var traffic_chart = document.getElementById("traffic-chart");
-var TrafficChart = echarts.init(traffic_chart);
+var TrafficChart = echarts.init(traffic_chart,lightmode);
 var status_chart = document.getElementById("status-chart");
-var StatusChart = echarts.init(status_chart);
+var StatusChart = echarts.init(status_chart,lightmode);
 var speed_chart = document.getElementById("speed-chart");
-var SpeedChart = echarts.init(speed_chart);
+var SpeedChart = echarts.init(speed_chart,lightmode);
 function updateStatus() {
     $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
         upspeed = convertSpeed(data.wan.upspeed)
@@ -50,7 +55,7 @@ function updateStatus() {
         addData(mem_data, memusage)
         addData(upspeed_data, (data.wan.upspeed / 1024 / 1024).toFixed(2))
         addData(downspeed_data, (data.wan.downspeed / 1024 / 1024).toFixed(2))
-        data_num = data_num + 1;
+        data_num += 1;
         drawstatusChart();
         drawspeedChart();
     });
@@ -139,6 +144,7 @@ function pushdowntrafficdata(name, value) {
 function drawtrafficChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor:'',
         tooltip: {
             trigger: 'item',
             confine: true
@@ -169,6 +175,7 @@ function drawtrafficChart() {
 function drawstatusChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor:'',
         tooltip: {
             trigger: "axis",
         },
@@ -209,6 +216,7 @@ function drawstatusChart() {
 function drawspeedChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor:'',
         tooltip: {
             trigger: "axis",
         },

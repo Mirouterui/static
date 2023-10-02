@@ -1,6 +1,6 @@
 function getconfig() {
     $.get(host + '/_api/getconfig', function(data) {
-        dev = data.dev
+        dev = data.dev;
         var table = document.querySelector("table");
         var tbody = document.getElementById("router-list");
 
@@ -8,7 +8,7 @@ function getconfig() {
             $.get(host + '/' + i + '/api/xqsystem/router_name', function(data) {
                 var routername = data.routerName;
                 if (routernum == i) {
-                    routername = routername + "（当前选择）"
+                    routername = routername + "（当前选择）";
                 }
                 var tr = document.createElement("tr");
 
@@ -44,9 +44,11 @@ $(document).ready(function() {
     var params = new URLSearchParams(url.split('?')[1]);
     var choice = params.get('choice');
     if (choice) {
-        document.cookie = "routernum=" + choice + "; path=/";
+        localStorage.setItem("routernum", choice);
         window.location.href = "/";
     }
+
+    var routernum = localStorage.getItem("routernum");
 
     getconfig();
 });

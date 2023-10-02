@@ -1,13 +1,17 @@
 $(document).ready(function() {
-    var host = document.cookie.split('; ').find(row => row.startsWith('host=')).split('=')[1];
-    var url = new URL(host);
-    $('#ip').val(url.hostname);
-    $('#port').val(url.port);
+    var storedHost = localStorage.getItem('host');
+    if (storedHost) {
+        var url = new URL(storedHost);
+        $('#ip').val(url.hostname);
+        $('#port').val(url.port);
+    }
 });
+
 $('#Form').submit(function(event) {
     event.preventDefault();
     var ip = $('#ip').val();
     var port = $('#port').val();
-    document.cookie = "host=" + "http://" + ip + ":" + port + "; path=/";
+    var newHost = "http://" + ip + ":" + port;
+    localStorage.setItem('host', newHost);
     window.location.href = "/";
 });

@@ -4,29 +4,10 @@ if (protocol === "https:") {
     location.href = "http://" + location.host + location.pathname;
 }
 //处理host
-let host = "";
-if (document.cookie.indexOf("host") >= 0) {
-    let cookies = document.cookie.split("; ");
-    for (let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i].split("=");
-        if (cookie[0] === "host") {
-            host = cookie[1];
-            break;
-        }
-    }
-}
+let host = localStorage.getItem("host") || "";
 //处理routernum
-let routernum = "0";
-if (document.cookie.indexOf("routernum") >= 0) {
-    let cookies = document.cookie.split("; ");
-    for (let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i].split("=");
-        if (cookie[0] === "routernum") {
-            routernum = cookie[1];
-            break;
-        }
-    }
-}
+let routernum = localStorage.getItem("routernum") || "0";
+
 //跳转
 if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pathname !== '/host/index.html') {
     window.location.href = '/host/index.html';
@@ -165,4 +146,24 @@ function moreipdisplay(ip) {
         }
     }
     return ips
+}
+
+function darkMode() {
+    if (localStorage.getItem("darkMode") == "true") {
+        localStorage.setItem("darkMode", "false");
+        document.body.classList.remove("mdui-theme-layout-dark");
+        document.body.classList.add("light");
+        document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+        localStorage.setItem("darkMode", "true");
+        document.body.classList.remove("light");
+
+        document.body.classList.add("mdui-theme-layout-dark");
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+}
+if (localStorage.getItem("darkMode") == "true") {
+    document.body.classList.remove("light");
+    document.body.classList.add("mdui-theme-layout-dark");
+    document.documentElement.setAttribute('data-theme', 'dark');
 }

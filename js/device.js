@@ -53,6 +53,7 @@ function updateStatus() {
                     // 调用drawChart函数，绘制图表
                 drawspeedChart();
                 drawtrafficChart();
+                data_num += 1
                 var match = true
             }
         }

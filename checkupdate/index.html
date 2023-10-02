@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue light">
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
         <a href="/" class="mdui-list-item mdui-ripple">
@@ -53,7 +53,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            2023-10-02 12:39:35
+            2023-10-02 15:03:51
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -65,10 +65,13 @@
         </a>
         <a href="#" class="mdui-typo-headline" id="titletext">Mirouter-UI</a>
         <div class="mdui-toolbar-spacer"></div>
-        <a href="/" class="mdui-btn mdui-btn-icon">
+        <a href="/" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-tooltip="{content: '回到主页'}" >
             <i class="mdui-icon material-icons">home</i>
         </a>
-        <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+        <a class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-tooltip="{content: '夜间模式'}" onclick="darkMode();">
+            <i class="mdui-icon material-icons">brightness_medium</i>
+        </a>
+        <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-tooltip="{content: '刷新'}" >
             <i class="mdui-icon material-icons">refresh</i>
         </a>
     </div>
@@ -77,18 +80,22 @@
 
                 <div class="mdui-card">
                     <div class="mdui-card-content">
-                        <p>前端版本：<span id="frontversion">2023-10-02 12:39:35</span><br>后端版本：<span id="backversion">load</span></p>
+                        <p>前端版本：<span id="frontversion">2023-10-02 15:03:51</span><br>后端版本：<span id="backversion">load</span></p>
                         <div class="mdui-divider gap"></div>
                         <p id="update-info">正在检查更新...</p>
                     </div>
                     <div class="mdui-card-actions">
-                        <div class="mdui-spinner mdui-spinner-colorful" id="spinner"></div>
                         <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" disabled>更新前端</button>
                         <button id="checkUpdate-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="checkUpdate()">检查更新</button>
                     </div>
                 </div>
             </div>
-
+            <div class="mdui-dialog" id="loadingPhrases">
+                <div class="mdui-dialog-content mdui-valign">
+                    <div class="mdui-spinner" style="margin-right: 16px;"></div>
+                    处理中......
+                </div>
+            </div>
             <style>
                 .mdui-card {
                     box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.1);
