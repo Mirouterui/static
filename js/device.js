@@ -115,6 +115,7 @@ function getDeviceInfo() {
 function drawspeedChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor: '',
         tooltip: {
             trigger: "axis",
         },
@@ -155,6 +156,7 @@ function drawspeedChart() {
 function drawtrafficChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor: '',
         tooltip: {
             trigger: "axis",
         },

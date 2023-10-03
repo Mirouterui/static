@@ -10,7 +10,7 @@ if (localStorage.getItem("darkMode") == "true") {
     lightmode = "auto"
 }
 var tp_chart = document.getElementById("tp-chart");
-var TpChart = echarts.init(tp_chart,lightmode);
+var TpChart = echarts.init(tp_chart, lightmode);
 $(document).ready(function() {
     try {
         mode = localStorage.getItem('mode') || 1;
@@ -135,6 +135,7 @@ function getTp() {
 function drawTpChart() {
     // 定义图表的配置项和数据
     var option = {
+        backgroundColor: '',
         tooltip: {
             trigger: "axis",
         },
