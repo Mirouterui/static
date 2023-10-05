@@ -26,7 +26,7 @@ var traffic_chart = document.getElementById("traffic-chart");
 var TrafficChart = echarts.init(traffic_chart, lightmode);
 
 function updateStatus() {
-    $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
+    $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
         var match
         dev = data.dev
         for (var i = 0; i < dev.length; i++) {
@@ -71,7 +71,7 @@ function updateStatus() {
 }
 
 function getDeviceInfo() {
-    $.get(host + "/" + routernum + '/api/misystem/devicelist', function(data) {
+    $.get(host + '/' + routernum + '/api/misystem/devicelist', function(data) {
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -199,7 +199,7 @@ window.addEventListener('resize', function() {
 });
 
 function get_router_name() {
-    $.get(host + "/" + routernum + '/api/xqsystem/router_name', function(data) {
+    $.get(host + '/' + routernum + '/api/xqsystem/router_name', function(data) {
         if (data.code === 0) {
             router_name = data.routerName
             $("#router_name").text(router_name)

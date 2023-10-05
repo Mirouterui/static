@@ -42,7 +42,7 @@ $('.mdui-select').change(function() {
 
 function getTp() {
     if (mode == 1) {
-        $.get(host + "/" + routernum + '/api/misystem/status', function(data) {
+        $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
             cputp = data.temperature
             w24gtp = 0
             w5gtp = 0
@@ -86,7 +86,7 @@ function getTp() {
 
         });
     } else if (mode == 2) {
-        $.get(host + "/" + routernum + '/_api/gettemperature', function(data) {
+        $.get(host + '/' + routernum + '/_api/gettemperature', function(data) {
             if (data.code == 0) {
                 cputp = data.cpu_temperature / 1000
                 w24gtp = data.w24g_temperature / 1000

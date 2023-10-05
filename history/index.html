@@ -14,6 +14,8 @@
 </head>
 
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue light">
+    <script src="/js/echarts.min.js"></script>
+
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
         <a href="/" class="mdui-list-item mdui-ripple">
@@ -82,35 +84,59 @@
 </div>
             <div class="mdui-container">
                 <div class="mdui-card mdui-m-a-2">
-                    <div class="mdui-card-content">
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">设备列表（按<span id="showtypetext">下载速度</span>排列）</div>
-                        <div class="mdui-table-fluid">
-                            <table class="mdui-table mdui-table-hoverable">
-                                <thead>
-                                    <tr>
-                                        <th>设备名称</th>
-                                        <!-- <th>详细数据</th> -->
-                                        <th id="switchdownspeed">下载速度</th>
-                                        <th id="switchupspeed">上传速度</th>
-                                        <th>在线时长</th>
-                                        <th>连接方式</th>
-                                        <th>IP地址</th>
-                                        <th>MAC</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody id="device-list">
-                                </tbody>
-                            </table>
+                    <div class="mdui-card-header">
+                        <img class="mdui-card-header-avatar" src="/img/mirouter.png" />
+                        <div class="mdui-card-header-title">历史数据</div>
+                        <div class="mdui-card-header-subtitle" id="router_name">name</div>
+                        <div class="mdui-card-menu">
+                            <a href="javascript:updateStatus()">
+                                <i id="info-3" class="mdui-icon material-icons" mdui-tooltip="{content: '刷新数据'}">refresh</i>
+                            </a>
                         </div>
-                        <div class="mdui-divider gap"></div>
 
-                        <span class="mdui-typo-subheading-opacity mdui-m-y-1">
-                            当前连接了 <strong><span id="devicenum_now">load</span></strong> 个设备<span id="warning" style="display: none;">（设备过多，可能部分设备详细信息无法显示，如智能家居）</span>
-                        </span>
                     </div>
+                    <div class="mdui-card-content">
+                        <div id="all-chart">
+                            <div class="mdui-typo-subheading-opacity mdui-m-y-1">CPU/MEM</div>
+                            <div id="status-chart" style="width: 100%; height: 300px;"></div>
+                            <div class="mdui-divider gap"></div>
+
+                            <div class="mdui-typo-subheading-opacity mdui-m-y-1">网速</div>
+                            <div id="speed-chart" style="width: 100%; height: 300px;"></div>
+                            <div class="mdui-divider gap"></div>
+
+                            <!-- 总出入流量 -->
+                            <div class="mdui-typo-subheading-opacity mdui-m-y-1">总出入流量</div>
+                            <div id="traffic-chart" style="width: 100%; height: 300px;"></div>
+                            <div class="mdui-divider gap"></div>
+
+                            <div class="mdui-typo-subheading-opacity mdui-m-y-1">连接设备数量</div>
+                            <div id="devicenum-chart" style="width: 100%; height: 300px;"></div>
+                            <div class="mdui-divider gap"></div>
+                        </div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">设置信息</div>
+                        <div class="mdui-row-xs-1 mdui-row-sm-2">
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">采样时间间隔(s)：</span>
+                                <span id="sampletime">load</span>
+                            </div>
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">保留数据条数：</span>
+                                <span id="maxsaved">load</span>
+                            </div>
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">展示时间跨度：</span>
+                                <span id="timespan">load</span>
+                            </div>
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity">数据库路径：</span>
+                                <span id="databasepath">load</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <script src="/js/devicelist.js"></script>
+                <script src="/js/history.js"></script>
             </div>
             <link rel="stylesheet" href="/css/general.css">
 <script src="/js/general.js"></script>
