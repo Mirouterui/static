@@ -16,6 +16,7 @@
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue light">
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
+        <li class="mdui-subheader">路由器</li>
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content">首页</div>
@@ -32,6 +33,10 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">history</i>
             <div class="mdui-list-item-content">历史数据</div>
         </a>
+        <a href="/upnp/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">compare_arrows</i>
+            <div class="mdui-list-item-content">Upnp</div>
+        </a>
         <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
             <div class="mdui-list-item-content">路由器温度</div>
@@ -40,12 +45,17 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
             <div class="mdui-list-item-content">选择路由器</div>
         </a>
+        <li class="mdui-subheader">后端程序</li>
         <a href="/host/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
             <div class="mdui-list-item-content">设置后台主机地址</div>
         </a>
-        <a href="/checkupdate/index.html" class="mdui-list-item mdui-ripple">
+        <a href="/_api/refresh" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
+            <div class="mdui-list-item-content">刷新token</div>
+        </a>
+        <a href="/checkupdate/index.html" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">update</i>
             <div class="mdui-list-item-content">检查更新</div>
         </a>
         <a href="https://github.com/orgs/Mirouterui/discussions" class="mdui-list-item mdui-ripple">
@@ -57,7 +67,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            2023-10-05 16:46:47
+            2023-11-17 22:56:13
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -84,7 +94,7 @@
 
                 <div class="mdui-card">
                     <div class="mdui-card-content">
-                        <p>前端版本：<span id="frontversion">2023-10-05 16:46:47</span><br>后端版本：<span id="backversion">load</span></p>
+                        <p>前端版本：<span id="frontversion">2023-11-17 22:56:13</span><br>后端版本：<span id="backversion">load</span></p>
                         <div class="mdui-divider gap"></div>
                         <p id="update-info">正在检查更新...</p>
                     </div>
