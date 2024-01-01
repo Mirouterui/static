@@ -1,11 +1,23 @@
 function getconfig() {
     $.get(host + '/_api/getconfig', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         dev = data.dev;
         var table = document.querySelector("table");
         var tbody = document.getElementById("router-list");
 
         function processRouterName(i) {
             $.get(host + '/' + i + '/api/xqsystem/router_name', function(data) {
+                if (data.code != 0) {
+                    mdui.snackbar({
+                        message: "请求失败：" + data.msg
+                    })
+                    return
+                }
                 var routername = data.routerName;
                 if (routernum == i) {
                     routername = routername + "（当前选择）";

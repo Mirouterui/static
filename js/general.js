@@ -14,10 +14,10 @@ if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pa
 }
 
 
-// 接受数字，输出速度（MB/s）
+// 接受数字，输出速度（MiB/s）
 function convertSpeed(bytesPerSecond) {
     bytesPerSecond = parseFloat(bytesPerSecond);
-    var units = ["B/s", "KB/s", "MB/s", "GB/s", "TB/s"];
+    var units = ["B/s", "KiB/s", "MiB/s", "GiB/s", "TiB/s"];
     var speed = bytesPerSecond;
     var index = 0;
     while (speed >= 1024 && index < units.length - 1) {
@@ -30,7 +30,7 @@ function convertSpeed(bytesPerSecond) {
 
 function convertbytes(bytes, mode) {
     bytes = parseFloat(bytes);
-    var units = ["B", "KB", "MB", "GB", "TB"];
+    var units = ["B", "KiB", "MiB", "GiB", "TiB"];
     var speed = bytes;
     var index = 0;
     while (speed >= 1024 && index < units.length - 1) {
@@ -167,3 +167,26 @@ if (localStorage.getItem("darkMode") == "true") {
     document.body.classList.add("mdui-theme-layout-dark");
     document.documentElement.setAttribute('data-theme', 'dark');
 }
+
+function refreshToken() {
+    $.get(host + '/_api/refresh', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
+        mdui.snackbar({
+            message: data.msg
+        })
+
+    });
+}
+
+$.ajaxSetup({
+    error: function(jqXHR, textStatus, errorThrown) {
+        mdui.snackbar({
+            message: "发送网络请求失败：" + textStatus
+        });
+    }
+});

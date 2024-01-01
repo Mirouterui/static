@@ -1,14 +1,19 @@
 function updateStatus() {
     $.get(host + '/' + routernum + '/api/xqsystem/upnp', function(data) {
-        if (data.code == 0) {
-            if (data.status == 0) {
-                mdui.snackbar({
-                    message: 'UPNP已关闭'
-                })
-            } else if (data.status == 1) {
-                listUpnpInfo(data.list)
-            }
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
         }
+        if (data.status == 0) {
+            mdui.snackbar({
+                message: 'UPNP已关闭'
+            })
+        } else if (data.status == 1) {
+            listUpnpInfo(data.list)
+        }
+
     });
 }
 

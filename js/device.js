@@ -27,6 +27,12 @@ var TrafficChart = echarts.init(traffic_chart, lightmode);
 
 function updateStatus() {
     $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         var match
         dev = data.dev
         for (var i = 0; i < dev.length; i++) {
@@ -72,6 +78,12 @@ function updateStatus() {
 
 function getDeviceInfo() {
     $.get(host + '/' + routernum + '/api/misystem/devicelist', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         dev = data.list
         for (var i = 0; i < dev.length; i++) {
             //获取当前设备对象
@@ -131,21 +143,21 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "网络速度（MB/s）",
+            name: "网络速度（MiB/s）",
         },
         legend: {
             orient: 'vertical',
             left: 'right'
         },
         series: [{
-                name: "上传速度（MB/s）",
+                name: "上传速度（MiB/s）",
                 type: "line",
-                data: upspeed_data, // 返回网络速度（MB/s）作为纵坐标
+                data: upspeed_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
-                name: "下载速度（MB/s）",
+                name: "下载速度（MiB/s）",
                 type: "line",
-                data: downspeed_data, // 返回网络速度（MB/s）作为纵坐标
+                data: downspeed_data, // 返回网络速度（MiB/s）作为纵坐标
             },
         ],
     };
@@ -176,17 +188,17 @@ function drawtrafficChart() {
         },
         yAxis: {
             type: "value",
-            name: "上传/下载（GB）",
+            name: "上传/下载（GiB）",
         },
         series: [{
-                name: "上传总量（GB）",
+                name: "上传总量（GiB）",
                 type: "line",
-                data: uptraffic_data, // 返回网络速度（MB/s）作为纵坐标
+                data: uptraffic_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
-                name: "下载总量（GB）",
+                name: "下载总量（GiB）",
                 type: "line",
-                data: downtraffic_data, // 返回网络速度（MB/s）作为纵坐标
+                data: downtraffic_data, // 返回网络速度（MiB/s）作为纵坐标
             },
         ],
     };
@@ -200,10 +212,15 @@ window.addEventListener('resize', function() {
 
 function get_router_name() {
     $.get(host + '/' + routernum + '/api/xqsystem/router_name', function(data) {
-        if (data.code === 0) {
-            router_name = data.routerName
-            $("#router_name").text(router_name)
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
         }
+        router_name = data.routerName
+        $("#router_name").text(router_name)
+
     });
 }
 $(function() {

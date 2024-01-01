@@ -2,6 +2,12 @@ showtype = false
 
 function updateStatus() {
     $.get(host + '/' + routernum + '/api/misystem/devicelist', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         listDevices(data.list)
     });
 }

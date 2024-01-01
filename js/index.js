@@ -1,5 +1,11 @@
 function updateStatus() {
     $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         upspeed = convertSpeed(data.wan.upspeed)
         maxuploadspeed = convertSpeed(data.wan.maxuploadspeed)
         downspeed = convertSpeed(data.wan.downspeed)
@@ -27,27 +33,38 @@ function updateStatus() {
     });
 }
 
-function get_messages() {
-    $.get(host + '/' + routernum + '/api/misystem/messages', function(data) {
-        if (data.code != 0) {
-            mdui.snackbar({
-                message: '路由器有新信息，请登录路由器后台查看'
-            });
-        }
-    });
-}
+// function get_messages() {
+//     $.get(host + '/' + routernum + '/api/misystem/messages', function(data) {
+//         if (data.code != 0) {
+//             mdui.snackbar({
+//                 message: '路由器有新信息，请登录路由器后台查看'
+//             });
+//         }
+//     });
+// }
 
 function get_router_name() {
     $.get(host + '/' + routernum + '/api/xqsystem/router_name', function(data) {
-        if (data.code === 0) {
-            router_name = data.routerName
-            $("#router_name").text(router_name)
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
         }
+        router_name = data.routerName
+        $("#router_name").text(router_name)
+
     });
 }
 
 function check_internet_connect() {
     $.get(host + '/' + routernum + '/api/xqsystem/internet_connect', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         if (data.connect === 1) {
             mdui.snackbar({
                 message: '路由器好像没联网呢😢'
@@ -61,7 +78,7 @@ $(function() {
     updateStatus();
     check_internet_connect();
     get_router_name();
-    get_messages();
+    // get_messages();
 
     // 每5秒刷新状态
     setInterval(function() {

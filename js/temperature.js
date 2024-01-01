@@ -43,6 +43,12 @@ $('.mdui-select').change(function() {
 function getTp() {
     if (mode == 1) {
         $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
+            if (data.code != 0) {
+                mdui.snackbar({
+                    message: "请求失败：" + data.msg
+                })
+                return
+            }
             cputp = data.temperature
             w24gtp = 0
             w5gtp = 0
@@ -87,6 +93,12 @@ function getTp() {
         });
     } else if (mode == 2) {
         $.get(host + '/' + routernum + '/_api/gettemperature', function(data) {
+            if (data.code != 0) {
+                mdui.snackbar({
+                    message: "请求失败：" + data.msg
+                })
+                return
+            }
             if (data.code == 0) {
                 cputp = data.cpu_temperature / 1000
                 w24gtp = data.w24g_temperature / 1000
@@ -160,17 +172,17 @@ function drawTpChart() {
         series: [{
                 name: "CPU",
                 type: "line",
-                data: cputp_data, // 返回网络速度（MB/s）作为纵坐标
+                data: cputp_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
                 name: "2.4g网卡模块",
                 type: "line",
-                data: w24gtp_data, // 返回网络速度（MB/s）作为纵坐标
+                data: w24gtp_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
                 name: "5g网卡模块",
                 type: "line",
-                data: w5gtp_data, // 返回网络速度（MB/s）作为纵坐标
+                data: w5gtp_data, // 返回网络速度（MiB/s）作为纵坐标
             }
         ],
     };

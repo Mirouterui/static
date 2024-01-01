@@ -50,7 +50,7 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
             <div class="mdui-list-item-content">设置后台主机地址</div>
         </a>
-        <a href="/_api/refresh" class="mdui-list-item mdui-ripple">
+        <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
             <div class="mdui-list-item-content">刷新token</div>
         </a>
@@ -58,7 +58,7 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">update</i>
             <div class="mdui-list-item-content">检查更新</div>
         </a>
-        <a href="https://github.com/orgs/Mirouterui/discussions" class="mdui-list-item mdui-ripple">
+        <a href="https://bbs.hzchu.top/t/feedback" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
             <div class="mdui-list-item-content">反馈</div>
         </a>
@@ -67,7 +67,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            2023-11-17 22:56:13
+            2024-01-01 10:53:07
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -94,9 +94,11 @@
 
                 <div class="mdui-card">
                     <div class="mdui-card-content">
-                        <p>前端版本：<span id="frontversion">2023-11-17 22:56:13</span><br>后端版本：<span id="backversion">load</span></p>
+                        <p>前端版本：<span id="frontversion">2024-01-01 10:53:07</span><br>后端版本：<span id="backversion">load</span></p>
                         <div class="mdui-divider gap"></div>
                         <p id="update-info">正在检查更新...</p>
+                        <div class="mdui-divider gap"></div>
+                        <a href="https://bbs.hzchu.top/t/update">查看更新日志</p>
                     </div>
                     <div class="mdui-card-actions">
                         <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" disabled>更新前端</button>

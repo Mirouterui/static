@@ -34,16 +34,23 @@ var Devicenumchart = echarts.init(devicenum_chart, lightmode);
 function updateStatus() {
     purgedata()
     $.get(host + '/_api/gethistory?routernum=' + routernum, function(data) {
-        for (var i = 0; i < data.length; i++) {
-            time = new Date(data[i].CreatedAt).toLocaleString();
-            cpuload = data[i].Cpu
-            cpu_tp = data[i].Cpu_tp
-            memusage = data[i].Mem
-            upspeed = data[i].UpSpeed
-            downspeed = data[i].DownSpeed
-            uptotal = data[i].UpTotal
-            downtotal = data[i].DownTotal
-            devicenum = data[i].DeviceNum
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
+        history_data = data.history
+        for (var i = 0; i < history_data.length; i++) {
+            time = new Date(history_data[i].CreatedAt).toLocaleString();
+            cpuload = history_data[i].Cpu
+            cpu_tp = history_data[i].Cpu_tp
+            memusage = history_data[i].Mem
+            upspeed = history_data[i].UpSpeed
+            downspeed = history_data[i].DownSpeed
+            uptotal = history_data[i].UpTotal
+            downtotal = history_data[i].DownTotal
+            devicenum = history_data[i].DeviceNum
             xdata.push(time)
             cpu_data.push(cpuload)
             cputp_data.push(cpu_tp)
@@ -128,6 +135,9 @@ function pushdowntrafficdata(name, value) {
 
 }
 
+// 定义所有图表的实例数组
+echarts.connect([TrafficChart, StatusChart, SpeedChart, Devicenumchart]);
+
 function drawtrafficChart() {
     // 定义图表的配置项和数据
     var option = {
@@ -145,7 +155,7 @@ function drawtrafficChart() {
         },
         yAxis: {
             type: "value",
-            name: "（GB）",
+            name: "（GiB）",
         },
         dataZoom: [{
             type: 'slider',
@@ -155,12 +165,12 @@ function drawtrafficChart() {
         series: [{
                 name: "上传",
                 type: "line",
-                data: upload_traffic_data, // 返回网络速度（MB/s）作为纵坐标
+                data: upload_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
                 name: "下载",
                 type: "line",
-                data: download_traffic_data, // 返回网络速度（MB/s）作为纵坐标
+                data: download_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
             }
         ],
     };
@@ -229,7 +239,7 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "（MB/s）",
+            name: "（MiB/s）",
         },
         dataZoom: [{
             type: 'slider',

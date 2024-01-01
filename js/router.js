@@ -19,6 +19,12 @@ var SpeedChart = echarts.init(speed_chart, lightmode);
 
 function updateStatus() {
     $.get(host + '/' + routernum + '/api/misystem/status', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         upspeed = convertSpeed(data.wan.upspeed)
         maxuploadspeed = convertSpeed(data.wan.maxuploadspeed)
         downspeed = convertSpeed(data.wan.downspeed)
@@ -64,6 +70,12 @@ function updateStatus() {
 
 function check_internet_connect() {
     $.get(host + '/' + routernum + '/api/xqsystem/internet_connect', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
         if (data.connect === 1) {
             mdui.snackbar({
                 message: '路由器好像没联网呢😢'
@@ -75,16 +87,20 @@ function check_internet_connect() {
 
 function get_router_name() {
     $.get(host + '/' + routernum + '/api/xqsystem/router_name', function(data) {
-        if (data.code === 0) {
-            router_name = data.routerName
-            $("#router_name").text(router_name)
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
         }
+        router_name = data.routerName
+        $("#router_name").text(router_name)
+
     });
 }
 
 function get_fac_info() {
     $.get(host + '/' + routernum + '/api/xqsystem/fac_info', function(data) {
-
         router_name = data.routerName
         $("#isinit").text(boolTostring(data.init))
         $("#is4kblock").text(boolTostring(data["4kblock"]))
