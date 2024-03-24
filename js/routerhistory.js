@@ -44,13 +44,13 @@ function updateStatus() {
         history_data = data.history
         for (var i = 0; i < history_data.length; i++) {
             time = new Date(history_data[i].CreatedAt).toLocaleString();
-            cpuload = history_data[i].Cpu
+            cpuload = history_data[i].Cpu.toFixed(2)
             cpu_tp = history_data[i].Cpu_tp
-            memusage = history_data[i].Mem
+            memusage = history_data[i].Mem.toFixed(2)
             upspeed = history_data[i].UpSpeed
             downspeed = history_data[i].DownSpeed
-            uptotal = history_data[i].UpTotal
-            downtotal = history_data[i].DownTotal
+            uptotal = history_data[i].UpTotal.toFixed(2)
+            downtotal = history_data[i].DownTotal.toFixed(2)
             devicenum = history_data[i].DeviceNum
             xdata.push(time)
             cpu_data.push(cpuload)
