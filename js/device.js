@@ -10,10 +10,10 @@ if (mac) {
         message: '没有MAC地址😅'
     });
 }
-upspeed_data = []
-downspeed_data = []
-uptraffic_data = []
-downtraffic_data = []
+var upspeed_data = [];
+var downspeed_data = [];
+var upload_traffic_data = [];
+var download_traffic_data = [];
 var data_num = 0;
 if (localStorage.getItem("darkMode") == "true") {
     lightmode = "dark"
@@ -59,8 +59,8 @@ function updateStatus() {
                 var downloadtotal = togb(device.download);
                 addData(upspeed_data, upspeed)
                 addData(downspeed_data, downspeed)
-                addData(uptraffic_data, uploadtotal)
-                addData(downtraffic_data, downloadtotal)
+                addData(upload_traffic_data, uploadtotal)
+                addData(download_traffic_data, downloadtotal)
                     // 调用drawChart函数，绘制图表
                 drawspeedChart();
                 drawtrafficChart();
@@ -174,7 +174,7 @@ function drawtrafficChart() {
         },
         xAxis: {
             type: "category",
-            data: uptraffic_data.map(function(item, index) {
+            data: upload_traffic_data.map(function(item, index) {
                 var data_offset = 0;
                 if (data_num > 60) {
                     data_offset = data_num - 60;
@@ -193,12 +193,12 @@ function drawtrafficChart() {
         series: [{
                 name: "上传总量（GiB）",
                 type: "line",
-                data: uptraffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: upload_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
                 name: "下载总量（GiB）",
                 type: "line",
-                data: downtraffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: download_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
             },
         ],
     };
@@ -233,3 +233,8 @@ $(function() {
         updateStatus();
     }, 5000);
 });
+
+// jumptodevidehisory
+function jumptodevicehisory() {
+    window.location.href = "/devicehistory/index.html?mac=" + mac;
+}

@@ -12,6 +12,7 @@ var mem_data = [];
 var upspeed_data = [];
 var downspeed_data = [];
 var devicenum_data = [];
+var classification = "day";
 
 function purgedata() {
     xdata = [];
@@ -33,7 +34,7 @@ var Devicenumchart = echarts.init(devicenum_chart, lightmode);
 
 function updateStatus() {
     purgedata()
-    $.get(host + '/_api/gethistory?routernum=' + routernum, function(data) {
+    $.get(host + '/_api/getrouterhistory?routernum=' + routernum, function(data) {
         if (data.code != 0) {
             mdui.snackbar({
                 message: "请求失败：" + data.msg
@@ -64,7 +65,7 @@ function updateStatus() {
 
         drawstatusChart();
         drawspeedChart();
-        drawtrafficChart();
+        drawTrafficChart();
         devicenumChart();
     });
 }
@@ -91,8 +92,8 @@ function get_appconfig() {
         timespan = convertSeconds(parseInt(sampletime) * parseInt(maxsaved));
         $("#timespan").text(timespan);
     });
-
 }
+
 $(function() {
     // 初次加载状态
     get_appconfig();
@@ -104,18 +105,6 @@ $(function() {
     // }, 5000);
 });
 
-
-function pushdata(dev) {
-    //遍历dev数组，创建表格内容行
-    for (var i = 0; i < dev.length; i++) {
-        //获取当前设备对象
-        var device = dev[i];
-        pushuptrafficdata(device.devname, togb(device.upload));
-        pushdowntrafficdata(device.devname, togb(device.download));
-    }
-    drawtrafficChart();
-
-}
 
 function pushuptrafficdata(name, value) {
     data = {
@@ -136,9 +125,11 @@ function pushdowntrafficdata(name, value) {
 }
 
 // 定义所有图表的实例数组
-echarts.connect([TrafficChart, StatusChart, SpeedChart, Devicenumchart]);
+echarts.connect([StatusChart, SpeedChart, Devicenumchart]);
 
-function drawtrafficChart() {
+function drawTrafficChart() {
+    let {result_list: upload_traffic_data_processed, xdata: xdata_processed} = processTrafficData(xdata, upload_traffic_data, classification);
+    let download_traffic_data_processed = processTrafficData(xdata, download_traffic_data, classification).result_list;
     // 定义图表的配置项和数据
     var option = {
         backgroundColor: '',
@@ -151,7 +142,7 @@ function drawtrafficChart() {
         },
         xAxis: {
             type: "category",
-            data: xdata
+            data: xdata_processed
         },
         yAxis: {
             type: "value",
@@ -164,13 +155,13 @@ function drawtrafficChart() {
         }],
         series: [{
                 name: "上传",
-                type: "line",
-                data: upload_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                type: "bar",
+                data: upload_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
             },
             {
                 name: "下载",
-                type: "line",
-                data: download_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                type: "bar",
+                data: download_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
             }
         ],
     };
@@ -302,3 +293,76 @@ window.addEventListener('resize', function() {
     SpeedChart.resize();
     Devicenumchart.resize();
 });
+function processTrafficData(timeArray, dataArray, classification) {
+    let data = {};
+    for(let i = 0; i < timeArray.length; i++) {
+        let date = new Date(timeArray[i]);
+        let key;
+        switch(classification) {
+            case 'day':
+                key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+                break;
+            case 'hour':
+                key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:00`;
+                break;
+            case 'min':
+                key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+                break;
+            default:
+                console.log('Invalid classification');
+                return;
+        }
+        if(!data[key]) {
+            data[key] = [];
+        }
+        data[key].push(dataArray[i]);
+    }
+    let result = {};
+    for(let key in data) {
+        result[key] = sumDiffs(data[key]);
+    }
+    let xdata = Object.keys(result);
+    let result_list = Object.values(result);
+    return {result_list, xdata};
+}
+
+
+function sumDiffs(arr) {
+    let sum = 0;
+    while (arr.length > 0) {
+        let subArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (i === arr.length - 1 || arr[i] > arr[i + 1]) {
+                subArr.push(arr[i]);
+                if (subArr.length > 1) {
+                    sum += subArr[subArr.length - 1] - subArr[0];
+                }
+                arr = arr.slice(i + 1);
+                break;
+            } else {
+                subArr.push(arr[i]);
+            }
+        }
+    }
+    return sum;
+}
+
+// 监听data-fit-time-select变化
+$('#data-fit-time-select').on('change', function() {
+    let value = $(this).val();
+    switch(value) {
+        case '1':
+            classification = 'day';
+            break;
+        case '2':
+            classification = 'hour';
+            break;
+        case '3':
+            classification = 'min';
+            break;
+        default:
+            console.log('Invalid value');
+            break;
+    }
+    drawTrafficChart();
+})
