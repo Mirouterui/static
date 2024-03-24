@@ -87,8 +87,8 @@ function updateStatus() {
             time = new Date(history_data[i].CreatedAt).toLocaleString();
             upspeed = history_data[i].UpSpeed
             downspeed = history_data[i].DownSpeed
-            uptotal = history_data[i].UpTotal
-            downtotal = history_data[i].DownTotal
+            uptotal = history_data[i].UpTotal.toFixed(2)
+            downtotal = history_data[i].DownTotal.toFixed(2)
             xdata.push(time)
             upspeed_data.push((upspeed / 1024 / 1024).toFixed(2))
             downspeed_data.push((downspeed / 1024 / 1024).toFixed(2))
