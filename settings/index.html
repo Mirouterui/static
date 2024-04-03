@@ -45,18 +45,14 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
             <div class="mdui-list-item-content">选择路由器</div>
         </a>
-        <li class="mdui-subheader">后端程序</li>
-        <a href="/host/index.html" class="mdui-list-item mdui-ripple">
+        <li class="mdui-subheader">MRUI</li>
+        <a href="/settings/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
-            <div class="mdui-list-item-content">设置后台主机地址</div>
+            <div class="mdui-list-item-content">设置</div>
         </a>
         <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
             <div class="mdui-list-item-content">刷新token</div>
-        </a>
-        <a href="/checkupdate/index.html" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">update</i>
-            <div class="mdui-list-item-content">检查更新</div>
         </a>
         <a href="https://github.com/Mirouterui/mirouter-ui/issues" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
@@ -67,7 +63,7 @@
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
 
         <p>前端版本：
-            2024-04-03 16:28:07
+            v1.3.2-1
         </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
@@ -90,15 +86,50 @@
         </a>
     </div>
 </div>
-            <div class="mdui-container">
-
-                <div class="mdui-card">
+            <!-- <div class="mdui-container">
+                <div class="mdui-card mdui-m-a-2">
                     <div class="mdui-card-content">
-                        <p>前端版本：<span id="frontversion">2024-04-03 16:28:07</span><br>后端版本：<span id="backversion">load</span></p>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">杂项配置</div>
+                        <span class="mdui-typo-body-2-opacity">数据拟合时间:</span>
+                        <select id="data-fit-time-select-settings" class="mdui-select" mdui-select>
+                            <option value="week">周</option>
+                            <option value="day">天</option>
+                            <option value="hour">时</option>
+                            <option value="min">分</option>
+                          </select>
+                          <br>
+
+                          <span class="mdui-typo-body-2-opacity">速度单位:</span>
+                          <select id="speed-unit-select-settings" class="mdui-select">
+                            <option value="MiB/s">MiB/s</option>
+                            <option value="KiB/s">KiB/s</option>
+                            <option value="B/s">B/s</option>
+                          </select>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                $('#data-fit-time-select-settings').on('change', function () {
+                    let classification = $(this).val();
+                    localStorage.setItem('classification', classification);
+                })
+                $('#speed-unit-select-settings').on('change', function () {
+                    let unit = $(this).val();
+                    localStorage.setItem('speed-unit', unit);
+                })         
+            </script> -->
+            <div class="mdui-container">
+                <div class="mdui-card mdui-m-a-2">
+                    <div class="mdui-card-content">
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">检查更新</div>
                         <div class="mdui-divider gap"></div>
-                        <p id="update-info">正在检查更新...</p>
+                        <p>前端版本：<span id="frontversion">v1.3.2-1</span><br>后端版本：<span id="backversion">load</span></p>
                         <div class="mdui-divider gap"></div>
-                        <a href="https://bbs.hzchu.top/t/update">查看更新日志</p>
+                        <p id="update-info">点击检查更新...</p>
+                        <div class="mdui-divider gap"></div>
+                        <a href="https://github.com/Mirouterui/static/releases">查看前端更新日志</a><br>
+                        <a href="https://github.com/Mirouterui/mirouter-ui/releases">查看后端更新日志</a>
                     </div>
                     <div class="mdui-card-actions">
                         <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" disabled>更新前端</button>
@@ -117,7 +148,6 @@
                     box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.1);
                     border-radius: 10px;
                     border: 1px solid rgba(0, 0, 0, 0.1);
-                    margin-top: 25%;
                 }
                 
                 .mdui-card-actions {
@@ -129,73 +159,32 @@
                     border-radius: 8px;
                 }
             </style>
-            <script>
-                $("#spinner").hide();
-
-                function getBackVersion() {
-                    $.get(host + '/_api/getconfig', function(data) {
-                        $('#backversion').text(data.ver)
-                    });
-                }
-
-                function checkUpdate() {
-                    $("#update-info").text("正在检查更新...");
-                    $("#checkUpdate-button").attr("disabled", true);
-                    $("#spinner").show();
-                    $.get("https://mrui-api.hzchu.top/checkupdate", function(data) {
-                        var frontversion = data.frontversion;
-                        var backversion = data.backversion;
-                        var versioninfo = ""
-                            // 检查document.getElementById("frontversion")是否一致
-                        if ($("#frontversion").text() != frontversion) {
-                            versioninfo += "前端版本有更新，版本号：" + frontversion + "<br>";
-                        }
-                        if ($("#backversion").text() == "Docker") {
-                            versioninfo += "当前为Docker环境，无法检查后端更新<br>";
-                            $("#flushFront-button").attr("disabled", false);
-                        } else if ($("#backversion").text() != backversion) {
-                            versioninfo += "后端版本有更新，版本号：" + backversion + "<br>";
-                        }
-                        if ($("#frontversion").text() == frontversion && $("#backversion").text() == backversion) {
-                            versioninfo += "未检测到更新(●'◡'●)<br>";
-                        }
-                        $("#update-info").html(versioninfo);
-                        $("#checkUpdate-button").attr("disabled", false);
-                        $("#spinner").hide();
-                    })
-
-                }
-
-                function flushFront() {
-                    $("#spinner").show();
-                    $("#flushFront-button").attr("disabled", true);
-                    $.get(host + '/_api/flushstatic', function(data) {
-                        if (data.code == 0) {
-                            mdui.snackbar({
-                                message: "更新成功"
-                            })
-                        } else if (data.msg) {
-                            mdui.snackbar({
-                                message: data.msg
-                            });
-                        } else {
-                            mdui.snackbar({
-                                message: data.message
-                            });
-                        }
-                        $("#spinner").hide();
-                        $("#flushFront-button").attr("disabled", false);
-                        // 5秒后刷新
-                        setTimeout(function() {
-                            location.reload();
-                        }, 5000);
-                    })
-                }
-                $(function() {
-                    getBackVersion();
-                    checkUpdate();
-                });
-            </script>
+            <script src="/js/checkupdate.js"></script>
+            <div class="mdui-container">
+                <div class="mdui-card mdui-m-a-2">
+                    <div class="mdui-card-header">
+                        <img class="mdui-card-header-avatar" src="/favicon.ico" style="border-radius: 0%;"/>
+                        <div class="mdui-card-header-title">设置后端地址</div>
+                        <div class="mdui-card-header-subtitle">配置应用的后端服务器地址</div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <form id="Form">
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">后端程序IP</label>
+                                <input class="mdui-textfield-input" type="text" id="ip" required />
+                            </div>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">后端程序端口（默认6789）</label>
+                                <input class="mdui-textfield-input" type="text" id="port" required />
+                            </div>
+                            <div class="mdui-card-actions">
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" type="submit">确定</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script src="/js/host.js"></script>
             <link rel="stylesheet" href="/css/general.css">
 <script src="/js/general.js"></script>
 </body>

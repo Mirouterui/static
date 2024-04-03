@@ -55,8 +55,8 @@ function updateStatus() {
                 $('#onlinetime').text(onlinetime)
                 var upspeed = (device.upspeed / 1024 / 1024).toFixed(2);
                 var downspeed = (device.downspeed / 1024 / 1024).toFixed(2);
-                var uploadtotal = togb(device.upload)
-                var downloadtotal = togb(device.download);
+                var uploadtotal = convertSize(device.upload,"GiB")
+                var downloadtotal = convertSize(device.download,"GiB");
                 addData(upspeed_data, upspeed)
                 addData(downspeed_data, downspeed)
                 addData(upload_traffic_data, uploadtotal)

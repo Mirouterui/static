@@ -133,8 +133,8 @@ function pushdata(dev) {
     for (var i = 0; i < dev.length; i++) {
         //获取当前设备对象
         var device = dev[i];
-        pushuptrafficdata(device.devname, togb(device.upload));
-        pushdowntrafficdata(device.devname, togb(device.download));
+        pushuptrafficdata(device.devname, convertSize(device.upload,"GiB"));
+        pushdowntrafficdata(device.devname, convertSize(device.download,"GiB"));
     }
     drawtrafficChart();
 
