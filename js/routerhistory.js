@@ -49,8 +49,8 @@ function updateStatus() {
             memusage = history_data[i].Mem.toFixed(2)
             upspeed = history_data[i].UpSpeed
             downspeed = history_data[i].DownSpeed
-            uptotal = history_data[i].UpTotal.toFixed(2)
-            downtotal = history_data[i].DownTotal.toFixed(2)
+            uptotal = history_data[i].UpTotal
+            downtotal = history_data[i].DownTotal
             devicenum = history_data[i].DeviceNum
             xdata.push(time)
             cpu_data.push(cpuload)
@@ -344,7 +344,7 @@ function sumDiffs(arr) {
             }
         }
     }
-    return sum;
+    return sum.toFixed(2);
 }
 
 // 监听data-fit-time-select变化

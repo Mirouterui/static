@@ -154,8 +154,6 @@ function drawTrafficChart() {
     TrafficChart.setOption(option);
 }
 function drawspeedChart() {
-    let {result_list: upspeed_data_processed, xdata: xdata_processed} = processTrafficData(xdata, upspeed_data, classification);
-    let downspeed_data_processed = processTrafficData(xdata, downspeed_data, classification).result_list;
     // 定义图表的配置项和数据
     var option = {
         backgroundColor: '',
@@ -168,7 +166,7 @@ function drawspeedChart() {
         },
         xAxis: {
             type: "category",
-            data: xdata_processed
+            data: xdata
         },
         yAxis: {
             type: "value",
@@ -182,12 +180,12 @@ function drawspeedChart() {
         series: [{
                 name: "上传速度",
                 type: "line",
-                data: upspeed_data_processed,
+                data: upspeed_data,
             },
             {
                 name: "下载速度",
                 type: "line",
-                data: downspeed_data_processed,
+                data: downspeed_data,
             },
         ],
     };
@@ -246,7 +244,7 @@ function sumDiffs(arr) {
             }
         }
     }
-    return sum;
+    return sum.toFixed(2);
 }
 
 // 监听data-fit-time-select变化
@@ -267,7 +265,6 @@ $('#data-fit-time-select').on('change', function() {
             break;
     }
     drawTrafficChart();
-    drawspeedChart();
 })
 
 

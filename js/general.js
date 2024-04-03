@@ -47,7 +47,9 @@ function convertbytes(bytes, mode) {
 function togb(num) {
     return (num / 1024 / 1024 / 1024).toFixed(2)
 }
-
+function tomb(num) {
+    return (num / 1024 / 1024).toFixed(2)
+}
 function roundToOneDecimal(num) {
     // 保留一位小数
     return num.toFixed(1);
