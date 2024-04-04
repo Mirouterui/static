@@ -12,11 +12,7 @@ if (localStorage.getItem("darkMode") == "true") {
 var tp_chart = document.getElementById("tp-chart");
 var TpChart = echarts.init(tp_chart, lightmode);
 $(document).ready(function() {
-    try {
-        mode = localStorage.getItem('mode') || 1;
-    } catch (error) {
-        mode = 1;
-    }
+    mode = localStorage.getItem('mode') || 1;
     $('.mdui-select').val(mode);
     new mdui.Select('.mdui-select');
 });
@@ -172,21 +168,21 @@ function drawTpChart() {
         series: [{
                 name: "CPU",
                 type: "line",
-                data: cputp_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: cputp_data, 
             },
             {
                 name: "2.4g网卡模块",
                 type: "line",
-                data: w24gtp_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: w24gtp_data, 
             },
             {
                 name: "5g网卡模块",
                 type: "line",
-                data: w5gtp_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: w5gtp_data, 
             }
         ],
     };
-    // 设置图表的配置项和数据
+    TpChart.hideLoading();
     TpChart.setOption(option);
 }
 
@@ -196,6 +192,7 @@ window.addEventListener('resize', function() {
 
 
 $(function() {
+    TpChart.showLoading();
     // 初次加载状态
     getTp();
     // 每5秒刷新状态

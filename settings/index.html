@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/mdui.min.css">
     <script src="/js/mdui.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.i18n.min.js"></script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -16,55 +17,51 @@
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue light">
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
-        <li class="mdui-subheader">路由器</li>
+        <li class="mdui-subheader" i18n="sidebar.subheader">路由器</li>
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-            <div class="mdui-list-item-content">首页</div>
+            <div class="mdui-list-item-content" i18n="sidebar.home">首页</div>
         </a>
         <a href="/devicelist/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">devices</i>
-            <div class="mdui-list-item-content">设备列表</div>
+            <div class="mdui-list-item-content" i18n="sidebar.devicelist">设备列表</div>
         </a>
         <a href="/router/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">router</i>
-            <div class="mdui-list-item-content">路由器状态</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routerstatus">路由器状态</div>
         </a>
         <a href="/routerhistory/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">history</i>
-            <div class="mdui-list-item-content">历史数据</div>
+            <div class="mdui-list-item-content" i18n="sidebar.historydata">历史数据</div>
         </a>
         <a href="/upnp/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">compare_arrows</i>
-            <div class="mdui-list-item-content">Upnp</div>
+            <div class="mdui-list-item-content" i18n="sidebar.upnp">Upnp</div>
         </a>
         <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
-            <div class="mdui-list-item-content">路由器温度</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routertemperature">路由器温度</div>
         </a>
         <a href="/choicerouter/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
-            <div class="mdui-list-item-content">选择路由器</div>
+            <div class="mdui-list-item-content" i18n="sidebar.choicerouter">选择路由器</div>
         </a>
-        <li class="mdui-subheader">MRUI</li>
+        <li class="mdui-subheader" i18n="sidebar.mrui">MRUI</li>
         <a href="/settings/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
-            <div class="mdui-list-item-content">设置</div>
+            <div class="mdui-list-item-content" i18n="sidebar.settings">设置</div>
         </a>
         <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
-            <div class="mdui-list-item-content">刷新token</div>
+            <div class="mdui-list-item-content" i18n="sidebar.refreshtoken">刷新token</div>
         </a>
         <a href="https://github.com/Mirouterui/mirouter-ui/issues" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
-            <div class="mdui-list-item-content">反馈</div>
+            <div class="mdui-list-item-content" i18n="sidebar.feedback">反馈</div>
         </a>
     </div>
     <div class="copyright">
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
-
-        <p>前端版本：
-            v1.3.2-1
-        </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
 </div>
@@ -86,60 +83,72 @@
         </a>
     </div>
 </div>
-            <!-- <div class="mdui-container">
-                <div class="mdui-card mdui-m-a-2">
+            <div class="mdui-container">
+                <div class="mdui-card mdui-m-a-2" style="overflow: unset;">
                     <div class="mdui-card-content">
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">杂项配置</div>
-                        <span class="mdui-typo-body-2-opacity">数据拟合时间:</span>
-                        <select id="data-fit-time-select-settings" class="mdui-select" mdui-select>
-                            <option value="week">周</option>
-                            <option value="day">天</option>
-                            <option value="hour">时</option>
-                            <option value="min">分</option>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="settings.websettings.title">前端页面配置</div>
+                        <div class="mdui-divider gap"></div>
+
+                        <span class="mdui-typo-body-2-opacity" i18n="general.data-fit-time-select.title">流量数据拟合时间：</span>
+                        <select id="data-fit-time-select-settings">
+                            <option value="week" i18n="general.data-fit-time-select.week" i18n-only="html">周</option>
+                            <option value="day" i18n="general.data-fit-time-select.day" i18n-only="html">天</option>
+                            <option value="hour" i18n="general.data-fit-time-select.hour" i18n-only="html">时</option>
+                            <option value="min" i18n="general.data-fit-time-select.min" i18n-only="html">分</option>
                           </select>
                           <br>
 
-                          <span class="mdui-typo-body-2-opacity">速度单位:</span>
-                          <select id="speed-unit-select-settings" class="mdui-select">
+                          <span class="mdui-typo-body-2-opacity" i18n="settings.traffic-unit-select.title">流量单位：</span>
+                          <select id="traffic-unit-select-settings">
+                            <option value="TiB">TiB</option>
+                            <option value="GiB">GiB</option>
+                            <option value="MiB">MiB</option>
+                            <option value="KiB">KiB</option>
+                            <option value="B">B</option>
+                          </select>
+                          <br>
+
+                          <span class="mdui-typo-body-2-opacity" i18n="settings.speed-unit-select.title">速度单位：</span>
+                          <select id="speed-unit-select-settings">
                             <option value="MiB/s">MiB/s</option>
                             <option value="KiB/s">KiB/s</option>
                             <option value="B/s">B/s</option>
                           </select>
+                          <div class="mdui-divider gap"></div>
 
+
+                          <span class="mdui-typo-body-2-opacity" i18n="settings.language-select.title">语言切换：</span>
+                          <select id="language-select-settings">
+                            <option value="zh_CN">简体中文</option>
+                            <option value="zh_TW">繁体中文</option>
+                            <option value="en">English</option>
+                          </select>
                     </div>
                 </div>
             </div>
-            <script>
-                $('#data-fit-time-select-settings').on('change', function () {
-                    let classification = $(this).val();
-                    localStorage.setItem('classification', classification);
-                })
-                $('#speed-unit-select-settings').on('change', function () {
-                    let unit = $(this).val();
-                    localStorage.setItem('speed-unit', unit);
-                })         
-            </script> -->
             <div class="mdui-container">
                 <div class="mdui-card mdui-m-a-2">
                     <div class="mdui-card-content">
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">检查更新</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="settings.checkupdate.title">检查更新</div>
                         <div class="mdui-divider gap"></div>
-                        <p>前端版本：<span id="frontversion">v1.3.2-1</span><br>后端版本：<span id="backversion">load</span></p>
+                        <p><span i18n="settings.checkupdate.frontversion">前端版本：</span><span id="frontversion">v1.3.3-1</span><br><span i18n="settings.checkupdate.backendversion">后端版本：</span><span id="backendversion">load</span></p>
                         <div class="mdui-divider gap"></div>
-                        <p id="update-info">点击检查更新...</p>
+                        <p id="update-info" i18n="settings.checkupdate.checkupdate">点击按钮检查更新...</p>
                         <div class="mdui-divider gap"></div>
-                        <a href="https://github.com/Mirouterui/static/releases">查看前端更新日志</a><br>
-                        <a href="https://github.com/Mirouterui/mirouter-ui/releases">查看后端更新日志</a>
+                        <div id="update-log">
+                            <a href="https://github.com/Mirouterui/static/releases" i18n="settings.checkupdate.viewfrontchangelog">查看前端更新日志</a><br>
+                            <a href="https://github.com/Mirouterui/mirouter-ui/releases" i18n="settings.checkupdate.viewbackendchangelog">查看后端更新日志</a>
+                        </div>
                     </div>
                     <div class="mdui-card-actions">
-                        <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" disabled>更新前端</button>
-                        <button id="checkUpdate-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="checkUpdate()">检查更新</button>
+                        <button id="flushFront-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="flushFront()" i18n="settings.checkupdate.buttontext.flushfront" disabled>更新前端</button>
+                        <button id="checkUpdate-button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="checkUpdate()" i18n="settings.checkupdate.buttontext.checkupdate">检查更新</button>
                     </div>
                 </div>
             </div>
             <div class="mdui-dialog" id="loadingPhrases">
                 <div class="mdui-dialog-content mdui-valign">
-                    <div class="mdui-spinner" style="margin-right: 16px;"></div>
+                    <div class="mdui-spinner" style="margin-right: 16px;" i18n="settings.checkupdate.loading"></div>
                     处理中......
                 </div>
             </div>
@@ -159,32 +168,31 @@
                     border-radius: 8px;
                 }
             </style>
-            <script src="/js/checkupdate.js"></script>
             <div class="mdui-container">
                 <div class="mdui-card mdui-m-a-2">
                     <div class="mdui-card-header">
                         <img class="mdui-card-header-avatar" src="/favicon.ico" style="border-radius: 0%;"/>
-                        <div class="mdui-card-header-title">设置后端地址</div>
-                        <div class="mdui-card-header-subtitle">配置应用的后端服务器地址</div>
+                        <div class="mdui-card-header-title" i18n="settings.programlink.title">设置后端地址</div>
+                        <div class="mdui-card-header-subtitle" i18n="settings.programlink.subtitle">配置应用的后端服务器地址</div>
                     </div>
                     <div class="mdui-card-content">
                         <form id="Form">
                             <div class="mdui-textfield">
-                                <label class="mdui-textfield-label">后端程序IP</label>
+                                <label class="mdui-textfield-label" i18n="settings.programlink.ip">后端程序IP</label>
                                 <input class="mdui-textfield-input" type="text" id="ip" required />
                             </div>
                             <div class="mdui-textfield">
-                                <label class="mdui-textfield-label">后端程序端口（默认6789）</label>
+                                <label class="mdui-textfield-label" i18n="settings.programlink.port">后端程序端口（默认6789）</label>
                                 <input class="mdui-textfield-input" type="text" id="port" required />
                             </div>
                             <div class="mdui-card-actions">
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" type="submit">确定</button>
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" type="submit" i18n="settings.programlink.button.confirm">确定</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <script src="/js/host.js"></script>
+            <script src="/js/settings.js"></script>
             <link rel="stylesheet" href="/css/general.css">
 <script src="/js/general.js"></script>
 </body>

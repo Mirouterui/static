@@ -62,7 +62,7 @@ function listDevices(dev) {
         tr.appendChild(td_onlinetime);
 
         var td_type = document.createElement("td");
-        td_type.textContent = getconnecttype(device.type);
+        td_type.textContent = getConnectType(device.type);
         tr.appendChild(td_type);
 
         ips = moreipdisplay(device.ip)
@@ -90,11 +90,11 @@ function listDevices(dev) {
 
 $('#switchdownspeed').click(function() {
     showtype = false;
-    $('#showtypetext').text('下载速度');
+    // $('#showtypetext').text('下载速度');
 });
 $('#switchupspeed').click(function() {
     showtype = true;
-    $('#showtypetext').text('上传速度');
+    // $('#showtypetext').text('上传速度');
 })
 
 $(function() {

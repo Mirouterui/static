@@ -89,11 +89,13 @@ function updateStatus() {
             uptotal = history_data[i].UpTotal.toFixed(2)
             downtotal = history_data[i].DownTotal.toFixed(2)
             xdata.push(time)
-            upspeed_data.push((upspeed / 1024 / 1024).toFixed(2))
-            downspeed_data.push((downspeed / 1024 / 1024).toFixed(2))
-            upload_traffic_data.push(convertSize(uptotal,"GiB"))
-            download_traffic_data.push(convertSize(downtotal,"GiB"))
+            upspeed_data.push(convertSize(upspeed,speedUnit))
+            downspeed_data.push(convertSize(downspeed,speedUnit))
+            upload_traffic_data.push(convertSize(uptotal,trafficUnit))
+            download_traffic_data.push(convertSize(downtotal,trafficUnit))
         }
+        SpeedChart.showLoading();
+        TrafficChart.showLoading();
         drawspeedChart();
         drawTrafficChart();
     });
@@ -131,7 +133,7 @@ function drawTrafficChart() {
         },
         yAxis: {
             type: "value",
-            name: "（GiB）",
+            name: "（" + trafficUnit + "）",
         },
         dataZoom: [{
             type: 'slider',
@@ -141,15 +143,16 @@ function drawTrafficChart() {
         series: [{
                 name: "上传",
                 type: "bar",
-                data: upload_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
+                data: upload_traffic_data_processed, 
             },
             {
                 name: "下载",
                 type: "bar",
-                data: download_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
+                data: download_traffic_data_processed, 
             }
         ],
     };
+    TrafficChart.hideLoading();
     TrafficChart.setOption(option);
 }
 function drawspeedChart() {
@@ -169,7 +172,7 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "（MiB/s）",
+            name: "（" + speedUnit + "）",
         },
         dataZoom: [{
             type: 'slider',
@@ -188,7 +191,7 @@ function drawspeedChart() {
             },
         ],
     };
-    // 设置图表的配置项和数据
+    SpeedChart.hideLoading();    
     SpeedChart.setOption(option);
 }
 
@@ -212,6 +215,7 @@ window.addEventListener('resize', function() {
 
 $(function() {
     // 初次加载状态
+    showChartLoading();
     get_appconfig();
     updateStatus();
     getDeviceInfo();
@@ -224,4 +228,10 @@ $(function() {
 // jumptodevidehisory
 function jumptodeviceinfo() {
     window.location.href = "/device/index.html?mac=" + mac;
+}
+
+// 展示加载动画
+function showChartLoading() {
+    TrafficChart.showLoading();
+    SpeedChart.showLoading();
 }
