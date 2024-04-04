@@ -53,15 +53,17 @@ function updateStatus() {
                 $('#uploadtotal').text(uploadtotal)
                 $('#downloadtotal').text(downloadtotal)
                 $('#onlinetime').text(onlinetime)
-                var upspeed = (device.upspeed / 1024 / 1024).toFixed(2);
-                var downspeed = (device.downspeed / 1024 / 1024).toFixed(2);
-                var uploadtotal = convertSize(device.upload,"GiB")
-                var downloadtotal = convertSize(device.download,"GiB");
+                var upspeed = convertSize(device.upspeed,speedUnit)
+                var downspeed = convertSize(device.downspeed,speedUnit)
+                var uploadtotal = convertSize(device.upload,trafficUnit);
+                var downloadtotal = convertSize(device.download,trafficUnit);
                 addData(upspeed_data, upspeed)
                 addData(downspeed_data, downspeed)
                 addData(upload_traffic_data, uploadtotal)
                 addData(download_traffic_data, downloadtotal)
                     // 调用drawChart函数，绘制图表
+                SpeedChart.showLoading();
+                TrafficChart.showLoading();
                 drawspeedChart();
                 drawtrafficChart();
                 data_num += 1
@@ -103,7 +105,7 @@ function getDeviceInfo() {
                 $("#authority_lan").text(getbooleantype(device.authority.lan));
                 $("#authority_admin").text(getbooleantype(device.authority.admin));
                 $("#authority_pridisk").text(getbooleantype(device.authority.pridisk));
-                $("#connecttype").text(getconnecttype(device.type));
+                $("#connecttype").text(getConnectType(device.type));
                 $("#isap").text(getbooleantype(device.isap));
                 $("#isonline").text(getbooleantype(device.online));
 
@@ -143,25 +145,26 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "网络速度（MiB/s）",
+            name: "网络速度（"+speedUnit+"）",
         },
         legend: {
             orient: 'vertical',
             left: 'right'
         },
         series: [{
-                name: "上传速度（MiB/s）",
+                name: "上传速度（"+speedUnit+"）",
                 type: "line",
-                data: upspeed_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: upspeed_data, 
             },
             {
-                name: "下载速度（MiB/s）",
+                name: "下载速度（"+speedUnit+"）",
                 type: "line",
-                data: downspeed_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: downspeed_data, 
             },
         ],
     };
     // 设置图表的配置项和数据
+    SpeedChart.hideLoading();
     SpeedChart.setOption(option);
 }
 
@@ -188,21 +191,22 @@ function drawtrafficChart() {
         },
         yAxis: {
             type: "value",
-            name: "上传/下载（GiB）",
+            name: "上传/下载（"+trafficUnit+"）",
         },
         series: [{
-                name: "上传总量（GiB）",
+                name: "上传总量（"+trafficUnit+"）",
                 type: "line",
-                data: upload_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: upload_traffic_data, 
             },
             {
-                name: "下载总量（GiB）",
+                name: "下载总量（"+trafficUnit+"）",
                 type: "line",
-                data: download_traffic_data, // 返回网络速度（MiB/s）作为纵坐标
+                data: download_traffic_data, 
             },
         ],
     };
     // 设置图表的配置项和数据
+    TrafficChart.hideLoading();
     TrafficChart.setOption(option);
 }
 window.addEventListener('resize', function() {
@@ -225,6 +229,7 @@ function get_router_name() {
 }
 $(function() {
     // 初次加载状态
+    showChartLoading();
     getDeviceInfo();
     get_router_name();
     updateStatus();
@@ -237,4 +242,10 @@ $(function() {
 // jumptodevidehisory
 function jumptodevicehisory() {
     window.location.href = "/devicehistory/index.html?mac=" + mac;
+}
+
+// 展示加载动画
+function showChartLoading() {
+    TrafficChart.showLoading();
+    SpeedChart.showLoading();
 }

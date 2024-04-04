@@ -22,17 +22,14 @@ function purgedata() {
     downspeed_data = [];
     devicenum_data = [];
 }
-var traffic_chart = document.getElementById("traffic-chart");
-var TrafficChart = echarts.init(traffic_chart, lightmode);
-var status_chart = document.getElementById("status-chart");
-var StatusChart = echarts.init(status_chart, lightmode);
-var speed_chart = document.getElementById("speed-chart");
-var SpeedChart = echarts.init(speed_chart, lightmode);
-var devicenum_chart = document.getElementById("devicenum-chart");
-var Devicenumchart = echarts.init(devicenum_chart, lightmode);
+var TrafficChart = echarts.init(document.getElementById("traffic-chart"), lightmode);
+var StatusChart = echarts.init(document.getElementById("status-chart"), lightmode);
+var SpeedChart = echarts.init(document.getElementById("speed-chart"), lightmode);
+var Devicenumchart = echarts.init(document.getElementById("devicenum-chart"), lightmode);
 
 function updateStatus() {
-    purgedata()
+    showChartLoading();
+    purgedata();
     $.get(host + '/_api/getrouterhistory?routernum=' + routernum, function(data) {
         if (data.code != 0) {
             mdui.snackbar({
@@ -55,10 +52,10 @@ function updateStatus() {
             cpu_data.push(cpuload)
             cputp_data.push(cpu_tp)
             mem_data.push(memusage)
-            upspeed_data.push((upspeed / 1024 / 1024).toFixed(2))
-            downspeed_data.push((downspeed / 1024 / 1024).toFixed(2))
-            upload_traffic_data.push(convertSize(uptotal,"GiB"))
-            download_traffic_data.push(convertSize(downtotal,"GiB"))
+            upspeed_data.push(convertSize(upspeed,speedUnit))
+            downspeed_data.push(convertSize(downspeed,speedUnit))
+            upload_traffic_data.push(convertSize(uptotal,trafficUnit))
+            download_traffic_data.push(convertSize(downtotal,trafficUnit))
             devicenum_data.push(devicenum)
         }
 
@@ -145,7 +142,7 @@ function drawTrafficChart() {
         },
         yAxis: {
             type: "value",
-            name: "（GiB）",
+            name: "（" + trafficUnit + "）",
         },
         dataZoom: [{
             type: 'slider',
@@ -155,15 +152,16 @@ function drawTrafficChart() {
         series: [{
                 name: "上传",
                 type: "bar",
-                data: upload_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
+                data: upload_traffic_data_processed, 
             },
             {
                 name: "下载",
                 type: "bar",
-                data: download_traffic_data_processed, // 返回网络速度（MiB/s）作为纵坐标
+                data: download_traffic_data_processed, 
             }
         ],
     };
+    TrafficChart.hideLoading();
     TrafficChart.setOption(option);
 }
 
@@ -208,7 +206,7 @@ function drawstatusChart() {
             },
         ],
     };
-    // 设置图表的配置项和数据
+    StatusChart.hideLoading();
     StatusChart.setOption(option);
 }
 
@@ -229,7 +227,7 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "（MiB/s）",
+            name: "（" + speedUnit + "）",
         },
         dataZoom: [{
             type: 'slider',
@@ -248,7 +246,7 @@ function drawspeedChart() {
             },
         ],
     };
-    // 设置图表的配置项和数据
+    SpeedChart.hideLoading();
     SpeedChart.setOption(option);
 }
 
@@ -282,7 +280,7 @@ function devicenumChart() {
             data: devicenum_data,
         }],
     };
-    // 设置图表的配置项和数据
+    Devicenumchart.hideLoading();
     Devicenumchart.setOption(option);
 }
 
@@ -294,9 +292,18 @@ window.addEventListener('resize', function() {
 });
 
 
+// 展示加载动画
+function showChartLoading() {
+    TrafficChart.showLoading();
+    StatusChart.showLoading();
+    SpeedChart.showLoading();
+    Devicenumchart.showLoading();
+}
 
-$('#data-fit-time-select').on('change', function() {
+$('#data-fit-time-select').val(localStorage.getItem("classification") || "day");
+new mdui.Select('#data-fit-time-select')
+$('#data-fit-time-select').on('change', function () {
     classification = $(this).val();
+    localStorage.setItem('classification', classification);
     drawTrafficChart();
 })
-

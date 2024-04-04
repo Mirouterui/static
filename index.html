@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/mdui.min.css">
     <script src="/js/mdui.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.i18n.min.js"></script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -18,55 +19,51 @@
 
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
-        <li class="mdui-subheader">路由器</li>
+        <li class="mdui-subheader" i18n="sidebar.subheader">路由器</li>
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-            <div class="mdui-list-item-content">首页</div>
+            <div class="mdui-list-item-content" i18n="sidebar.home">首页</div>
         </a>
         <a href="/devicelist/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">devices</i>
-            <div class="mdui-list-item-content">设备列表</div>
+            <div class="mdui-list-item-content" i18n="sidebar.devicelist">设备列表</div>
         </a>
         <a href="/router/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">router</i>
-            <div class="mdui-list-item-content">路由器状态</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routerstatus">路由器状态</div>
         </a>
         <a href="/routerhistory/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">history</i>
-            <div class="mdui-list-item-content">历史数据</div>
+            <div class="mdui-list-item-content" i18n="sidebar.historydata">历史数据</div>
         </a>
         <a href="/upnp/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">compare_arrows</i>
-            <div class="mdui-list-item-content">Upnp</div>
+            <div class="mdui-list-item-content" i18n="sidebar.upnp">Upnp</div>
         </a>
         <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
-            <div class="mdui-list-item-content">路由器温度</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routertemperature">路由器温度</div>
         </a>
         <a href="/choicerouter/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
-            <div class="mdui-list-item-content">选择路由器</div>
+            <div class="mdui-list-item-content" i18n="sidebar.choicerouter">选择路由器</div>
         </a>
-        <li class="mdui-subheader">MRUI</li>
+        <li class="mdui-subheader" i18n="sidebar.mrui">MRUI</li>
         <a href="/settings/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
-            <div class="mdui-list-item-content">设置</div>
+            <div class="mdui-list-item-content" i18n="sidebar.settings">设置</div>
         </a>
         <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
-            <div class="mdui-list-item-content">刷新token</div>
+            <div class="mdui-list-item-content" i18n="sidebar.refreshtoken">刷新token</div>
         </a>
         <a href="https://github.com/Mirouterui/mirouter-ui/issues" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
-            <div class="mdui-list-item-content">反馈</div>
+            <div class="mdui-list-item-content" i18n="sidebar.feedback">反馈</div>
         </a>
     </div>
     <div class="copyright">
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
-
-        <p>前端版本：
-            v1.3.2-1
-        </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
 </div>
@@ -108,7 +105,7 @@
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <!-- CPU 使用率 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity">CPU 使用率</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.cpu-used">CPU 使用率</div>
                                 <div class="mdui-progress" id="cpu-used">
                                     <div class="mdui-progress-determinate mdui-color-indigo-400" style="width: 0%"></div>
                                 </div>
@@ -116,7 +113,7 @@
                             </div>
                             <!-- 内存使用率 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity" id="mem-used">内存使用率</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.mem-used">内存使用率</div>
                                 <div class="mdui-progress" id="mem-used">
                                     <div class="mdui-progress-determinate mdui-color-pink-400" style="width: 0%"></div>
                                 </div>
@@ -128,16 +125,16 @@
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <!-- 网络上传速度 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity">上传速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.uploadspeed">上传速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="uploadspeed">load</span>
-                                <div class="mdui-typo-subheading-opacity">最大上传速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.maxuploadspeed">最大上传速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="maxuploadspeed">load</span>
                             </div>
                             <!-- 网络下载速度 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity">下载速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.downloadspeed">下载速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="downloadspeed">load</span>
-                                <div class="mdui-typo-subheading-opacity">最大下载速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.maxdownloadspeed">最大下载速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="maxdownloadspeed">load</span>
 
                             </div>
@@ -145,32 +142,32 @@
                         <!-- 分割线 -->
                         <div class="mdui-divider gap"></div>
                         <!-- 总出入流量 -->
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">总出入流量</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.totaltraffic">总出入流量</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
 
-                                <span class="mdui-typo-body-2-opacity">上传：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="general.upload">上传：</span>
                                 <span id="uploadtotal">load</span>
                             </div>
                             <div class="mdui-col">
 
-                                <span class="mdui-typo-body-2-opacity">下载：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="general.download">下载：</span>
                                 <span id="downloadtotal">load</span>
                             </div>
                         </div>
                     </div>
                     <div class="mdui-divider gap"></div>
                     <div class="mdui-card-content">
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">设备列表（详细数据点击设备名称）</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="index.devicelist">设备列表（详细数据点击设备名称）</div>
                         <div class="mdui-table-fluid">
                             <table class="mdui-table mdui-table-hoverable">
                                 <thead>
                                     <tr>
-                                        <th>设备名称</th>
-                                        <th>下载速度</th>
-                                        <th>上传速度</th>
-                                        <th>总上传量</th>
-                                        <th>总下载量</th>
+                                        <th i18n="general.th.devicename">设备名称</th>
+                                        <th i18n="general.th.downloadspeed">下载速度</th>
+                                        <th i18n="general.th.uploadspeed">上传速度</th>
+                                        <th i18n="general.th.uploadtotal">总上传量</th>
+                                        <th i18n="general.th.downloadtotal">总下载量</th>
 
                                     </tr>
                                 </thead>

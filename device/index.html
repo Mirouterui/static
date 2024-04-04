@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/mdui.min.css">
     <script src="/js/mdui.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.i18n.min.js"></script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -18,55 +19,51 @@
 
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
-        <li class="mdui-subheader">路由器</li>
+        <li class="mdui-subheader" i18n="sidebar.subheader">路由器</li>
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-            <div class="mdui-list-item-content">首页</div>
+            <div class="mdui-list-item-content" i18n="sidebar.home">首页</div>
         </a>
         <a href="/devicelist/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">devices</i>
-            <div class="mdui-list-item-content">设备列表</div>
+            <div class="mdui-list-item-content" i18n="sidebar.devicelist">设备列表</div>
         </a>
         <a href="/router/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">router</i>
-            <div class="mdui-list-item-content">路由器状态</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routerstatus">路由器状态</div>
         </a>
         <a href="/routerhistory/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">history</i>
-            <div class="mdui-list-item-content">历史数据</div>
+            <div class="mdui-list-item-content" i18n="sidebar.historydata">历史数据</div>
         </a>
         <a href="/upnp/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">compare_arrows</i>
-            <div class="mdui-list-item-content">Upnp</div>
+            <div class="mdui-list-item-content" i18n="sidebar.upnp">Upnp</div>
         </a>
         <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
-            <div class="mdui-list-item-content">路由器温度</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routertemperature">路由器温度</div>
         </a>
         <a href="/choicerouter/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
-            <div class="mdui-list-item-content">选择路由器</div>
+            <div class="mdui-list-item-content" i18n="sidebar.choicerouter">选择路由器</div>
         </a>
-        <li class="mdui-subheader">MRUI</li>
+        <li class="mdui-subheader" i18n="sidebar.mrui">MRUI</li>
         <a href="/settings/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
-            <div class="mdui-list-item-content">设置</div>
+            <div class="mdui-list-item-content" i18n="sidebar.settings">设置</div>
         </a>
         <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
-            <div class="mdui-list-item-content">刷新token</div>
+            <div class="mdui-list-item-content" i18n="sidebar.refreshtoken">刷新token</div>
         </a>
         <a href="https://github.com/Mirouterui/mirouter-ui/issues" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
-            <div class="mdui-list-item-content">反馈</div>
+            <div class="mdui-list-item-content" i18n="sidebar.feedback">反馈</div>
         </a>
     </div>
     <div class="copyright">
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
-
-        <p>前端版本：
-            v1.3.2-1
-        </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
 </div>
@@ -108,16 +105,16 @@
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <!-- 网络上传速度 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity">上传速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.uploadspeed">上传速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="uploadspeed">88GB/s</span>
-                                <div class="mdui-typo-subheading-opacity">最大上传速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.maxuploadspeed">最大上传速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="maxuploadspeed">88GB/s</span>
                             </div>
                             <!-- 网络下载速度 -->
                             <div class="mdui-col">
-                                <div class="mdui-typo-subheading-opacity">下载速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.downloadspeed">下载速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="downloadspeed">88GB/s</span>
-                                <div class="mdui-typo-subheading-opacity">最大下载速度</div>
+                                <div class="mdui-typo-subheading-opacity" i18n="general.maxdownloadspeed">最大下载速度</div>
                                 <span class="mdui-typo-body-2-opacity" id="maxdownloadspeed">88GB/s</span>
                             </div>
                         </div>
@@ -126,66 +123,66 @@
                         <div id="speed-chart" style="width: 100%; height: 300px;"></div>
                         <!-- 分割线 -->
                         <div class="mdui-divider gap"></div>
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">总出入流量</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.totaltraffic">总出入流量</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
 
-                                <span class="mdui-typo-body-2-opacity">上传：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="general.upload">上传：</span>
                                 <span id="uploadtotal">88GB</span>
                             </div>
                             <div class="mdui-col">
 
-                                <span class="mdui-typo-body-2-opacity">下载：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="general.download">下载：</span>
                                 <span id="downloadtotal">88GB</span>
                             </div>
                         </div>
                         <div class="mdui-divider gap"></div>
                         <div id="traffic-chart" style="width: 100%; height: 300px;"></div>
                         <div class="mdui-divider gap"></div>
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">权限</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.authority">权限</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">可访问<strong>wan</strong>网络：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.authority.wan">可访问<strong>wan</strong>网络：</span>
                                 <span id="authority_wan">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">可访问<strong>lan</strong>网络：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.authority.lan">可访问<strong>lan</strong>网络：</span>
                                 <span id="authority_lan">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">可以管理员身份访问：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.authority.admin">可以管理员身份访问：</span>
                                 <span id="authority_admin">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">	可访问隐私盘：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.authority.pridisk">可访问隐私盘：</span>
                                 <span id="authority_pridisk">load</span>
                             </div>
                         </div>
                         <div class="mdui-divider gap"></div>
-                        <div class="mdui-typo-subheading-opacity mdui-m-y-1">更多信息</div>
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.moreinfo">更多信息</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">IP地址：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.ipaddress">IP地址：</span>
                                 <span id="ipaddress">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">MAC地址：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.mac">MAC地址：</span>
                                 <span id="mac">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">在线时长：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.onlinetime">在线时长：</span>
                                 <span id="onlinetime">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">设备连接方式：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.connectway">设备连接方式：</span>
                                 <span id="connecttype">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">是否在线：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.isonline">是否在线：</span>
                                 <span id="isonline">load</span>
                             </div>
                             <div class="mdui-col">
-                                <span class="mdui-typo-body-2-opacity">是否为 AP：</span>
+                                <span class="mdui-typo-body-2-opacity" i18n="device.isap">是否为 AP：</span>
                                 <span id="isap">load</span>
                             </div>
                         </div>

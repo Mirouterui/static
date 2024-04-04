@@ -9,13 +9,26 @@ let host = localStorage.getItem("host") || "";
 let routernum = localStorage.getItem("routernum") || "0";
 // 获取默认时间分组
 let classification = localStorage.getItem("classification") || "day";
-
+// 获取默认速度单位
+let speedUnit = localStorage.getItem("speed-unit") || "MiB/s";
+// 获取默认速度单位
+let trafficUnit = localStorage.getItem("traffic-unit") || "GiB";
+// 获取默认语言
+let language = localStorage.getItem("language") || "zh_CN";
 //跳转
-if (window.location.host == 'mrui.hzchu.top:8880' && !host && window.location.pathname !== '/settings/index.html') {
+if (window.location.host == 'mrui-web.hzchu.top' && !host && window.location.pathname !== '/settings/index.html') {
     window.location.href = '/settings/index.html';
 }
 
-
+$("[i18n]").i18n({
+    defaultLang: language,
+    filePath: "/i18n/",
+    filePrefix: "i18n_",
+    fileSuffix: "",
+    forever: true,
+    callback: function() {
+    }
+});
 
 
 
@@ -115,20 +128,31 @@ function convertbytes(bytes, mode) {
 }
 
 function convertSize(size, unit) {
-    switch(unit) {
-        case 'KiB':
-            return (size / 1024).toFixed(2)
-        case 'MiB':
-            return (size / 1024 / 1024).toFixed(2)
-        case 'GiB':
-            return (size / 1024 / 1024 / 1024).toFixed(2)
-        case 'TiB':
-            return (size / 1024 / 1024 / 1024 / 1024).toFixed(2)
-        default:
-            console.log('Invalid unit "'+unit+'", defaulting to GiB');
-            return (size / 1024 / 1024 / 1024).toFixed(2)
+    const units = {
+        'B': 1,
+        'B/s': 1,
+        'KiB': 1024,
+        'KiB/s': 1024,
+        'MiB': 1024 * 1024,
+        'MiB/s': 1024 * 1024,
+        'GiB': 1024 * 1024 * 1024,
+        'GiB/s': 1024 * 1024 * 1024,
+        'TiB': 1024 * 1024 * 1024 * 1024,
+        'TiB/s': 1024 * 1024 * 1024 * 1024
+    };
+
+    try {
+        const divisor = units[unit];
+        if (!divisor) {
+            throw new Error('Invalid unit "' + unit + '", defaulting to GiB');
+        }
+        return (size / divisor).toFixed(2);
+    } catch (error) {
+        console.log(error.message);
+        return (size / units['GiB']).toFixed(2);
     }
 }
+
 
 function roundToOneDecimal(num) {
     // 保留一位小数
@@ -167,39 +191,39 @@ function convertSeconds(seconds) {
     return result;
 }
 
+// 转换布尔值
 function getbooleantype(type) {
-    // 0/1/2/3  有线 / 2.4G wifi / 5G wifi / guest wifi
     switch (type) {
         case 0:
-            return "否";
+            return "No";
         case 1:
-            return "是";
+            return "Yes";
         default:
-            return "未知";
+            return "Unknown";
     }
 }
-// 转换布尔值为是/否
+// 转换布尔值
 function boolTostring(value) {
     if (value) {
-        return '是';
+        return "Yes";
     } else {
-        return '否';
+        return "No";
     }
 }
 
-function getconnecttype(type) {
-    // 0/1/2/3  有线 / 2.4G wifi / 5G wifi / guest wifi
+function getConnectType(type) {
+    // 0/1/2/3  Wired / 2.4G wifi / 5G wifi / guest wifi
     switch (type) {
         case 0:
-            return "有线连接";
+            return "Wired";
         case 1:
             return "2.4G wifi";
         case 2:
             return "5G wifi";
         case 3:
-            return "guest wifi";
+            return "Guest wifi";
         default:
-            return "未知";
+            return "Unknown";
     }
 }
 
@@ -268,7 +292,7 @@ function refreshToken() {
 $.ajaxSetup({
     error: function (jqXHR, textStatus, errorThrown) {
         mdui.snackbar({
-            message: "发送网络请求失败：" + textStatus
+            message: "Failed to send network request: " + textStatus
         });
     }
 });

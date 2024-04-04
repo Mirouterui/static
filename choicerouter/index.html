@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/mdui.min.css">
     <script src="/js/mdui.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.i18n.min.js"></script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -16,55 +17,51 @@
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue light">
     <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
-        <li class="mdui-subheader">路由器</li>
+        <li class="mdui-subheader" i18n="sidebar.subheader">路由器</li>
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-            <div class="mdui-list-item-content">首页</div>
+            <div class="mdui-list-item-content" i18n="sidebar.home">首页</div>
         </a>
         <a href="/devicelist/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">devices</i>
-            <div class="mdui-list-item-content">设备列表</div>
+            <div class="mdui-list-item-content" i18n="sidebar.devicelist">设备列表</div>
         </a>
         <a href="/router/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">router</i>
-            <div class="mdui-list-item-content">路由器状态</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routerstatus">路由器状态</div>
         </a>
         <a href="/routerhistory/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">history</i>
-            <div class="mdui-list-item-content">历史数据</div>
+            <div class="mdui-list-item-content" i18n="sidebar.historydata">历史数据</div>
         </a>
         <a href="/upnp/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">compare_arrows</i>
-            <div class="mdui-list-item-content">Upnp</div>
+            <div class="mdui-list-item-content" i18n="sidebar.upnp">Upnp</div>
         </a>
         <a href="/temperature/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">wb_sunny</i>
-            <div class="mdui-list-item-content">路由器温度</div>
+            <div class="mdui-list-item-content" i18n="sidebar.routertemperature">路由器温度</div>
         </a>
         <a href="/choicerouter/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
-            <div class="mdui-list-item-content">选择路由器</div>
+            <div class="mdui-list-item-content" i18n="sidebar.choicerouter">选择路由器</div>
         </a>
-        <li class="mdui-subheader">MRUI</li>
+        <li class="mdui-subheader" i18n="sidebar.mrui">MRUI</li>
         <a href="/settings/index.html" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
-            <div class="mdui-list-item-content">设置</div>
+            <div class="mdui-list-item-content" i18n="sidebar.settings">设置</div>
         </a>
         <a href="javascript:refreshToken()" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">refresh</i>
-            <div class="mdui-list-item-content">刷新token</div>
+            <div class="mdui-list-item-content" i18n="sidebar.refreshtoken">刷新token</div>
         </a>
         <a href="https://github.com/Mirouterui/mirouter-ui/issues" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
-            <div class="mdui-list-item-content">反馈</div>
+            <div class="mdui-list-item-content" i18n="sidebar.feedback">反馈</div>
         </a>
     </div>
     <div class="copyright">
         <p><a href="https://github.com/Mirouterui/mirouter-ui" target="_blank">Mirouter-ui</a></p>
-
-        <p>前端版本：
-            v1.3.2-1
-        </p>
         <p>Maded by <a href="https://hzchu.top">Thun888</a></p>
     </div>
 </div>
@@ -90,14 +87,14 @@
                 <div class="mdui-card mdui-m-a-2">
                     <div class="mdui-card-header">
                         <img class="mdui-card-header-avatar" src="/img/mirouter.png" style="border-radius: 0%;"/>
-                        <div class="mdui-card-header-title">选择路由器</div>
+                        <div class="mdui-card-header-title" i18n="choicerouter.title">选择路由器</div>
                     </div>
                     <div class="mdui-card-content">
                         <table class="mdui-table mdui-table-hoverable">
                             <thead>
                                 <tr>
-                                    <th>路由器名称</th>
-                                    <th>IP</th>
+                                    <th i18n="choicerouter.th.routername">路由器名称</th>
+                                    <th i18n="choicerouter.th.ip">IP地址</th>
                                 </tr>
                             </thead>
                             <tbody id="router-list">

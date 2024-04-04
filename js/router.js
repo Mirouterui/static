@@ -57,11 +57,12 @@ function updateStatus() {
         $("#mem_total").text(memtotal)
         $("#mem_freq").text(memfreq)
         $("#mem_type").text(memtype)
+        
         pushdata(data.dev)
         addData(cpu_data, cpuload)
         addData(mem_data, memusage)
-        addData(upspeed_data, (data.wan.upspeed / 1024 / 1024).toFixed(2))
-        addData(downspeed_data, (data.wan.downspeed / 1024 / 1024).toFixed(2))
+        addData(upspeed_data, convertSize(data.wan.upspeed,speedUnit))
+        addData(downspeed_data, convertSize(data.wan.downspeed,speedUnit))
         data_num += 1;
         drawstatusChart();
         drawspeedChart();
@@ -117,6 +118,7 @@ function get_fac_info() {
 
 $(function() {
     // 初次加载状态
+    showChartLoading();
     updateStatus();
     check_internet_connect();
     get_router_name();
@@ -127,14 +129,18 @@ $(function() {
     }, 5000);
 });
 
-
+function showChartLoading() {
+    StatusChart.showLoading();
+    SpeedChart.showLoading();
+    TrafficChart.showLoading();
+}
 function pushdata(dev) {
     //遍历dev数组，创建表格内容行
     for (var i = 0; i < dev.length; i++) {
         //获取当前设备对象
         var device = dev[i];
-        pushuptrafficdata(device.devname, convertSize(device.upload,"GiB"));
-        pushdowntrafficdata(device.devname, convertSize(device.download,"GiB"));
+        pushuptrafficdata(device.devname, convertSize(device.upload,trafficUnit));
+        pushdowntrafficdata(device.devname, convertSize(device.download,trafficUnit));
     }
     drawtrafficChart();
 
@@ -182,7 +188,7 @@ function drawtrafficChart() {
             }
         ],
     };
-    // 设置图表的配置项和数据
+    TrafficChart.hideLoading();
     TrafficChart.setOption(option);
     //清空数据
     upload_traffic_data = [];
@@ -226,7 +232,7 @@ function drawstatusChart() {
             },
         ],
     };
-    // 设置图表的配置项和数据
+    StatusChart.hideLoading();
     StatusChart.setOption(option);
 }
 
@@ -253,7 +259,7 @@ function drawspeedChart() {
         },
         yAxis: {
             type: "value",
-            name: "网络速度（MB/s）",
+            name: "网络速度（" + speedUnit + "）",
         },
         series: [{
                 name: "上传速度",
@@ -267,7 +273,7 @@ function drawspeedChart() {
             },
         ],
     };
-    // 设置图表的配置项和数据
+    SpeedChart.hideLoading();
     SpeedChart.setOption(option);
 }
 window.addEventListener('resize', function() {
