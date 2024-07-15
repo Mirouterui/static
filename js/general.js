@@ -15,6 +15,8 @@ let speedUnit = localStorage.getItem("speed-unit") || "MiB/s";
 let trafficUnit = localStorage.getItem("traffic-unit") || "GiB";
 // 获取默认语言
 let language = localStorage.getItem("language") || "zh_CN";
+//获取默认页面更新时间(ms)
+let pageUpdateTime = localStorage.getItem("page-update-time") || 5000;
 //跳转
 if (window.location.host == 'mrui-web.hzchu.top' && !host && window.location.pathname !== '/settings/index.html') {
     window.location.href = '/settings/index.html';
@@ -44,19 +46,22 @@ function processTrafficData(timeArray, dataArray, classification) {
         let date = new Date(timeArray[i]);
         let key;
         switch (classification) {
+            case 'min':
+                key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+                break;
+            case 'hour':
+                key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:00`;
+                break;
+            case 'day':
+                key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                break;
             case 'week':
                 let firstDayOfYear = new Date(date.getFullYear(), 0, 1);
                 let pastDaysOfYear = (date - firstDayOfYear) / 86400000;
                 key = `${date.getFullYear()}-W${Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7)}`;
                 break;
-            case 'day':
-                key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-                break;
-            case 'hour':
-                key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:00`;
-                break;
-            case 'min':
-                key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+            case 'month': // 添加月的分类方式
+                key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 break;
             default:
                 console.log('Invalid classification');
@@ -66,7 +71,7 @@ function processTrafficData(timeArray, dataArray, classification) {
         if (!data[key]) {
             data[key] = [];
         }
-        data[key].push(dataArray[i]);
+        data[key].push(Number(dataArray[i])); // 将字符串转换为数值，不然sumDiffs会有问题
     }
     let result = {};
     for (let key in data) {

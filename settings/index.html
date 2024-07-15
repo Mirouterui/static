@@ -91,6 +91,7 @@
 
                         <span class="mdui-typo-body-2-opacity" i18n="general.data-fit-time-select.title">流量数据拟合时间：</span>
                         <select id="data-fit-time-select-settings">
+                            <option value="month" i18n="general.data-fit-time-select.month" i18n-only="html">月</option>
                             <option value="week" i18n="general.data-fit-time-select.week" i18n-only="html">周</option>
                             <option value="day" i18n="general.data-fit-time-select.day" i18n-only="html">天</option>
                             <option value="hour" i18n="general.data-fit-time-select.hour" i18n-only="html">时</option>
@@ -114,6 +115,13 @@
                             <option value="KiB/s">KiB/s</option>
                             <option value="B/s">B/s</option>
                           </select>
+                          <br>
+
+                          <div class="mdui-textfield">
+                            <span class="mdui-typo-body-2-opacity" i18n="settings.page-update-time-select.title">页面自动更新时间：</span>
+                            <input class="mdui-textfield-input" type="text" placeholder="毫秒" i18n="settings.page-update-time-select.placeholder"  i18n-only="placeholder" id="page-update-time-select-settings" oninput = "value=value.replace(/[^\d]/g,'')"/>
+                          </div>
+
                           <div class="mdui-divider gap"></div>
 
 
@@ -131,7 +139,7 @@
                     <div class="mdui-card-content">
                         <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="settings.checkupdate.title">检查更新</div>
                         <div class="mdui-divider gap"></div>
-                        <p><span i18n="settings.checkupdate.frontversion">前端版本：</span><span id="frontversion">v1.3.3-1</span><br><span i18n="settings.checkupdate.backendversion">后端版本：</span><span id="backendversion">load</span></p>
+                        <p><span i18n="settings.checkupdate.frontversion">前端版本：</span><span id="frontversion">v1.3.6-1</span><br><span i18n="settings.checkupdate.backendversion">后端版本：</span><span id="backendversion">load</span></p>
                         <div class="mdui-divider gap"></div>
                         <p id="update-info" i18n="settings.checkupdate.checkupdate">点击按钮检查更新...</p>
                         <div class="mdui-divider gap"></div>

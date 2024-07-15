@@ -198,5 +198,5 @@ $(function() {
     // 每5秒刷新状态
     setInterval(function() {
         getTp();
-    }, 5000);
+    }, pageUpdateTime);
 });

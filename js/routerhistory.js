@@ -21,6 +21,8 @@ function purgedata() {
     upspeed_data = [];
     downspeed_data = [];
     devicenum_data = [];
+    download_traffic_data = [];
+    upload_traffic_data = [];
 }
 var TrafficChart = echarts.init(document.getElementById("traffic-chart"), lightmode);
 var StatusChart = echarts.init(document.getElementById("status-chart"), lightmode);
@@ -98,7 +100,7 @@ $(function() {
     // 每5秒刷新状态
     // setInterval(function() {
     //     updateStatus();
-    // }, 5000);
+    // }, pageUpdateTime);
 });
 
 

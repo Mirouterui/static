@@ -126,7 +126,7 @@ $(function() {
     // 每5秒刷新状态
     setInterval(function() {
         updateStatus();
-    }, 5000);
+    }, pageUpdateTime);
 });
 
 function showChartLoading() {

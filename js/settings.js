@@ -11,6 +11,9 @@ $(document).ready(function() {
     new mdui.Select('#traffic-unit-select-settings')
     new mdui.Select('#language-select-settings')
     
+    $('#page-update-time-select-settings').val(pageUpdateTime);
+
+
     $('#data-fit-time-select-settings').on('change', function () {
         classification = $(this).val();
         localStorage.setItem('classification', classification);
@@ -37,6 +40,12 @@ $(document).ready(function() {
         
         localStorage.setItem('language', language);
     }) 
+
+    $('#page-update-time-select-settings').on('change', function () {
+        pageUpdateTime = $(this).val();
+        localStorage.setItem('page-update-time', Number(pageUpdateTime));
+    })
+    
 });
 
 // 检查更新
@@ -110,7 +119,7 @@ function flushFront() {
         // 5秒后刷新
         setTimeout(function() {
             location.reload();
-        }, 5000);
+        }, pageUpdateTime);
     })
 }
 $(function() {

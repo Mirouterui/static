@@ -30,6 +30,8 @@ function purgedata() {
     xdata = [];
     upspeed_data = [];
     downspeed_data = [];
+    upload_traffic_data = [];
+    download_traffic_data = [];
 }
 
 function getDeviceInfo() {
@@ -198,12 +200,13 @@ function drawspeedChart() {
 
 
 
-// 监听data-fit-time-select变化
-$('#data-fit-time-select').on('change', function() {
+$('#data-fit-time-select').val(localStorage.getItem("classification") || "min");
+new mdui.Select('#data-fit-time-select')
+$('#data-fit-time-select').on('change', function () {
     classification = $(this).val();
+    localStorage.setItem('classification', classification);
     drawTrafficChart();
 })
-
 
 
 
