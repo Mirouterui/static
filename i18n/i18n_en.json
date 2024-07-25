@@ -67,6 +67,9 @@
     "device.connectway": "Device Connection Method:",
     "device.isonline": "Is Online:",
     "device.isap": "Is AP:",
+    "device.connectInfo.connect_downspeed": "Connection Speed (Download):",
+    "device.connectInfo.connect_upspeed": "Connection Speed (Upload):",
+    "device.connectInfo.connect_signal": "Signal Strength:",
     "choicerouter.title": "Choose Router",
     "choicerouter.th.routername": "Router Name",
     "choicerouter.th.ip": "IP Address",
@@ -112,5 +115,8 @@
     "general.th.onlinetime": "Online Duration",
     "general.th.connectway": "Connection Method",
     "general.th.ipaddress": "IP Address",
-    "general.th.mac": "MAC"
+    "general.th.mac": "MAC",
+    "general.notsupported": "Not Supported",
+    "general.connectInfo": "Network Information"
+
 }

@@ -73,6 +73,9 @@
     "device.connectway": "設備連接方式：",
     "device.isonline": "是否在線：",
     "device.isap": "是否為 AP：",
+    "device.connectInfo.connect_downspeed": "連接速率（下載）：",
+    "device.connectInfo.connect_upspeed": "連接速率（上傳）：",
+    "device.connectInfo.connect_signal": "信號強度：",
 
     "choicerouter.title": "選擇路由器",
     "choicerouter.th.routername": "路由器名稱",
@@ -121,5 +124,7 @@
     "general.th.onlinetime": "在線時長",
     "general.th.connectway": "連接方式",
     "general.th.ipaddress": "IP地址",
-    "general.th.mac": "MAC"
+    "general.th.mac": "MAC",
+    "general.notsupported": "不支持",
+    "general.connectInfo":"網絡信息"
 }

@@ -126,6 +126,63 @@ function getDeviceInfo() {
     });
 }
 
+
+function updateconnectInfo() {
+    $.get(host + '/' + routernum + '/api/xqnetwork/diagdevicelist', function(data) {
+        if (data.code != 0) {
+            mdui.snackbar({
+                message: "请求失败：" + data.msg
+            })
+            return
+        }
+        var match
+        dev = data.devicelist
+        for (let i = 0; i < dev.length; i++) {
+            // 获取当前设备对象
+            const device = dev[i];
+            if (device.mac === mac) {
+                let connect_port = device.port; // 连接方式，使用getConnectType获取文字
+                connect_type = getConnectType(connect_port);
+                $("#connect_type").text(connect_type);
+                if (connect_port === 0) {
+                    connect_upspeed = "Not Supported";
+                    connect_downspeed = "Not supported";
+                    connect_signal = "Not supported";
+                } else {
+                    connect_upspeed = device.upspeed + "Mbps";
+                    connect_downspeed = device.downspeed + "Mbps";
+                    connect_signal = device.signal + "dBm";
+                    if (device.signal_warning === 1) {
+                        connect_signal += "⚠️";
+                    }
+                }
+        
+                $("#connect_upspeed").text(connect_upspeed);
+                $("#connect_downspeed").text(connect_downspeed);
+                $("#connect_signal").text(connect_signal);
+        
+                var match = true;
+            }
+        }
+        
+        if (match != true) {
+            mdui.snackbar({
+                message: '该设备（如智能插座）不支持此功能😢'
+            });
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
 function drawspeedChart() {
     // 定义图表的配置项和数据
     var option = {
@@ -233,9 +290,11 @@ $(function() {
     getDeviceInfo();
     get_router_name();
     updateStatus();
+    updateconnectInfo();
     // 每5秒刷新状态
     setInterval(function() {
         updateStatus();
+        updateconnectInfo();
     }, pageUpdateTime);
 });
 

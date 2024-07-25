@@ -139,6 +139,7 @@
                         <div class="mdui-divider gap"></div>
                         <div id="traffic-chart" style="width: 100%; height: 300px;"></div>
                         <div class="mdui-divider gap"></div>
+                        <!-- 权限信息 -->
                         <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.authority">权限</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
@@ -159,6 +160,7 @@
                             </div>
                         </div>
                         <div class="mdui-divider gap"></div>
+                         <!-- 更多信息 -->
                         <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.moreinfo">更多信息</div>
                         <div class="mdui-row-xs-1 mdui-row-sm-2">
                             <div class="mdui-col">
@@ -185,6 +187,27 @@
                                 <span class="mdui-typo-body-2-opacity" i18n="device.isap">是否为 AP：</span>
                                 <span id="isap">load</span>
                             </div>
+                        </div>
+                        <div class="mdui-divider gap"></div>
+                        <!-- 网络信息 -->
+                        <div class="mdui-typo-subheading-opacity mdui-m-y-1" i18n="general.connectInfo">网络信息（无线）</div>
+                        <div class="mdui-row-xs-1 mdui-row-sm-2">
+
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity" i18n="device.connectInfo.connect_downspeed">连接速率（下载）：</span>
+                                <span id="connect_downspeed">load</span>
+                            </div>
+
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity" i18n="device.connectInfo.connect_upspeed">连接速率（上传）：</span>
+                                <span id="connect_upspeed">load</span>
+                            </div>
+
+                            <div class="mdui-col">
+                                <span class="mdui-typo-body-2-opacity" i18n="device.connectInfo.connect_signal">信号强度：</span>
+                                <span id="connect_signal">load</span>
+                            </div>
+
                         </div>
                     </div>
                 </div>

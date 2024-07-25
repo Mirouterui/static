@@ -80,8 +80,8 @@ function checkUpdate() {
             versioninfo += "未检测到更新(●'◡'●)<br>";
         }
         // 处理更新日志
-        var frontlog = data.front.changelog;
-        var backendlog = data.backend.changelog;
+        var frontlog = data.front.changelog_html;
+        var backendlog = data.backend.changelog_html;
         if (frontlog) {
             
             changelog += "前端" + frontversion + "版本更新日志:<br>" + frontlog + "<br>";
