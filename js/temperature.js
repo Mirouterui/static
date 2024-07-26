@@ -96,9 +96,9 @@ function getTp() {
                 return
             }
             if (data.code == 0) {
-                cputp = data.cpu_temperature / 1000
-                w24gtp = data.w24g_temperature / 1000
-                w5gtp = data.w5g_temperature / 1000
+                cputp = data.cpu
+                w24gtp = data.w24g
+                w5gtp = data.w5g
                 var table = document.querySelector("table");
                 var tbody = document.getElementById("tp-list");
                 tbody.innerHTML = "";
@@ -108,23 +108,42 @@ function getTp() {
                 td_cputp.textContent = cputp + "°C";
                 tr.appendChild(td_cputp);
 
-                var td_fanspeed = document.createElement("td");
-                td_fanspeed.textContent = data.fanspeed
-                tr.appendChild(td_fanspeed);
+                if (data.fanspeed == -233) {
+                    var td_fanspeed = document.createElement("td");
+                    td_fanspeed.textContent = "不支持";
+                    tr.appendChild(td_fanspeed);
+                }else{
+                    var td_fanspeed = document.createElement("td");
+                    td_fanspeed.textContent = w24gtp + "rpm";
+                    tr.appendChild(td_fanspeed);
+                }
 
-                var td_24gtp = document.createElement("td");
-                td_24gtp.textContent = w24gtp + "°C";
-                tr.appendChild(td_24gtp);
+                if (w24gtp == -233) {
+                    var td_w24gtp = document.createElement("td");
+                    td_w24gtp.textContent = "不支持";
+                    tr.appendChild(td_w24gtp);
+                    w24gtp = 0
+                }else{
+                    var td_w24gtp = document.createElement("td");
+                    td_w24gtp.textContent = w24gtp + "°C";
+                    tr.appendChild(td_w24gtp);
+                }
 
-                var td_24gtp = document.createElement("td");
-                td_24gtp.textContent = w5gtp + "°C";
-                tr.appendChild(td_24gtp);
+                if (w5gtp == -233) {
+                    var td_w5gtp = document.createElement("td");
+                    td_w5gtp.textContent = "不支持";
+                    tr.appendChild(td_w5gtp);
+                    w24gtp = 0
+                }else{
+                    var td_w5gtp = document.createElement("td");
+                    td_w5gtp.textContent = w5gtp + "°C";
+                    tr.appendChild(td_w5gtp);
+                }
 
                 //将内容行添加到表格内容区域中
                 tbody.appendChild(tr);
 
                 table.appendChild(tbody);
-                addData(cputp_data, cputp)
                 addData(cputp_data, cputp)
                 addData(w24gtp_data, w24gtp)
                 addData(w5gtp_data, w5gtp)

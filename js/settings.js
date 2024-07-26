@@ -69,10 +69,10 @@ function checkUpdate() {
             // 检查document.getElementById("frontversion")是否一致
         if ($("#frontversion").text() != frontversion) {
             versioninfo += "前端版本有更新，版本号：" + frontversion + "<br>";
+            $("#flushFront-button").attr("disabled", false);
         }
         if ($("#backendversion").text() == "Docker") {
             versioninfo += "当前为Docker环境，无法检查后端更新<br>";
-            $("#flushFront-button").attr("disabled", false);
         } else if ($("#backendversion").text() != backendversion) {
             versioninfo += "后端版本有更新，版本号：" + backendversion + "<br>";
         }
